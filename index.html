@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Una pequeña aventura</title>
+
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <main id="game">
+
+        <section id="start-screen" class="screen active">
+            <div class="start-content">
+                <p class="eyebrow">UNA PEQUEÑA</p>
+
+                <h1>
+                    AVENTURA
+                    <span>PARA TI</span>
+                </h1>
+
+                <button id="start-button" class="game-button">
+                    ▶ Comenzar
+                </button>
+            </div>
+        </section>
+
+        <section id="intro-screen" class="screen">
+            <div class="scene">
+                <div class="placeholder-world">
+                    <div class="placeholder-character">
+                        🐸
+                    </div>
+                </div>
+
+                <div class="dialog-box">
+                    <p class="character-name">Rana</p>
+
+                    <p id="dialog-text">
+                        Buenos días...
+                    </p>
+
+                    <button id="continue-button" class="continue-button">
+                        ▼
+                    </button>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <script src="game.js"></script>
+</body>
+</html>
