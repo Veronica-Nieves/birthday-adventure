@@ -1,0 +1,182 @@
+* {
+    box-sizing: border-box;
+}
+
+html,
+body {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+}
+
+body {
+    overflow: hidden;
+    background: #05070a;
+    font-family: "Courier New", monospace;
+    color: white;
+}
+
+button {
+    font: inherit;
+}
+
+#game {
+    width: 100%;
+    height: 100%;
+}
+
+.screen {
+    display: none;
+    width: 100%;
+    height: 100%;
+}
+
+.screen.active {
+    display: block;
+}
+
+/* -------------------------
+   PANTALLA DE INICIO
+   ------------------------- */
+
+#start-screen {
+    background:
+        linear-gradient(
+            rgba(16, 24, 48, 0.25),
+            rgba(5, 7, 10, 0.8)
+        ),
+        linear-gradient(
+            #4b5f9b,
+            #9a688c 45%,
+            #252b40
+        );
+}
+
+.start-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    width: 100%;
+    height: 100%;
+
+    padding: 32px;
+    text-align: center;
+}
+
+.eyebrow {
+    margin: 0 0 4px;
+    font-size: 18px;
+    letter-spacing: 3px;
+}
+
+h1 {
+    margin: 0;
+    font-size: clamp(42px, 13vw, 72px);
+    line-height: 0.95;
+    text-shadow: 4px 4px 0 #171923;
+}
+
+h1 span {
+    display: block;
+    margin-top: 12px;
+    font-size: 0.55em;
+}
+
+.game-button {
+    margin-top: 70px;
+    padding: 14px 24px;
+
+    border: 3px solid white;
+    background: rgba(0, 0, 0, 0.65);
+    color: white;
+
+    cursor: pointer;
+}
+
+/* -------------------------
+   ESCENA
+   ------------------------- */
+
+.scene {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    background: #243b2c;
+}
+
+.placeholder-world {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 100%;
+    height: 100%;
+
+    background:
+        linear-gradient(
+            #53699a 0%,
+            #728e9b 48%,
+            #415a38 49%,
+            #263b26 100%
+        );
+}
+
+.placeholder-character {
+    font-size: 100px;
+    transform: translateY(-30px);
+}
+
+/* -------------------------
+   CUADRO DE DIÁLOGO
+   ------------------------- */
+
+.dialog-box {
+    position: absolute;
+
+    left: 5%;
+    right: 5%;
+    bottom: max(24px, env(safe-area-inset-bottom));
+
+    min-height: 150px;
+    padding: 18px 20px 38px;
+
+    border: 3px solid #d5d5d5;
+    border-radius: 5px;
+
+    background: rgba(8, 10, 14, 0.94);
+
+    box-shadow:
+        0 0 0 3px #30343b,
+        5px 5px 0 rgba(0, 0, 0, 0.4);
+}
+
+.character-name {
+    margin: 0 0 8px;
+
+    color: #72dc74;
+    font-weight: bold;
+    font-size: 19px;
+}
+
+#dialog-text {
+    margin: 0;
+
+    font-size: 17px;
+    line-height: 1.45;
+}
+
+.continue-button {
+    position: absolute;
+    right: 12px;
+    bottom: 8px;
+
+    border: 0;
+    background: transparent;
+
+    color: #66b7ff;
+    font-size: 22px;
+
+    cursor: pointer;
+}
