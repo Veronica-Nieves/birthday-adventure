@@ -2,6 +2,7 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
+
     <meta
         name="viewport"
         content="width=device-width, initial-scale=1.0, viewport-fit=cover"
@@ -147,15 +148,19 @@
             class="screen"
             aria-label="Habitación"
         >
-            <div id="room-scene" class="game-scene room-scene">
+            <div
+                id="room-scene"
+                class="game-scene room-scene"
+            >
 
                 <div class="scene-label">
                     HABITACIÓN
                 </div>
 
                 <!--
-                Más adelante sustituiremos este bloque
-                por el asset oficial de Sergio.
+                Personaje provisional de la habitación.
+                Posteriormente utilizaremos aquí
+                el sprite oficial de Sergio.
                 -->
                 <div
                     id="player"
@@ -217,316 +222,315 @@
 
         <!--
         ========================================
-        PANTALLA 5: EXTERIOR
-        Próximo paso.
+        PANTALLA 5: ALDEA DE SAPOPINGA
         ========================================
         -->
         <section
-            <!--
-========================================
-PANTALLA 5: ALDEA
-========================================
--->
-<section
-    id="outside-screen"
-    class="screen"
-    aria-label="Aldea"
->
-    <div id="village-scene" class="game-scene village-scene">
-
-        <!-- Fondo lejano -->
-        <div class="village-sky"></div>
-        <div class="village-hills"></div>
-
-        <!-- Letrero de entrada a la aldea -->
-        <div class="village-name-sign">
-            <div class="village-sign-board">
-                <span class="sign-small">BIENVENIDO A</span>
-                <span class="sign-name">ALDEA DE SAPOPINGA</span>
-            </div>
-        
-            <div class="village-sign-post"></div>
-        </div>
-        
-        <!-- Río -->
-        <div class="river"></div>
-
-        <!-- Letrero integrado en el mundo -->
-        <div class="river-sign">
-            <div class="sign-board">
-                RÍO UNIVERSIDAD
-            </div>
-            <div class="sign-post"></div>
-        </div>
-
-        <!-- Casa decorativa -->
-        <button
-            id="closed-house"
-            class="world-building closed-house"
-            type="button"
-            aria-label="Casa"
+            id="outside-screen"
+            class="screen"
+            aria-label="Aldea de Sapopinga"
         >
-            <span class="house-roof"></span>
-            <span class="house-body"></span>
-            <span class="house-door"></span>
-        </button>
+            <div
+                id="village-scene"
+                class="game-scene village-scene"
+            >
 
-        <!-- Casa del tesoro -->
-        <button
-            id="treasure-house"
-            class="world-building treasure-house"
-            type="button"
+                <!-- Fondo lejano -->
+                <div class="village-sky"></div>
+                <div class="village-hills"></div>
+
+                <!-- Río -->
+                <div class="river"></div>
+
+                <!-- Letrero de Río Universidad -->
+                <div class="river-sign">
+                    <div class="sign-board">
+                        RÍO UNIVERSIDAD
+                    </div>
+
+                    <div class="sign-post"></div>
+                </div>
+
+                <!-- Casa decorativa -->
+                <button
+                    id="closed-house"
+                    class="world-building closed-house"
+                    type="button"
+                    aria-label="Casa"
+                >
+                    <span class="house-roof"></span>
+                    <span class="house-body"></span>
+                    <span class="house-door"></span>
+                </button>
+
+                <!-- Casa del tesoro -->
+                <button
+                    id="treasure-house"
+                    class="world-building treasure-house"
+                    type="button"
+                    aria-label="Casa misteriosa"
+                >
+                    <span class="house-roof"></span>
+                    <span class="house-body"></span>
+                    <span class="house-door"></span>
+                </button>
+
+                <!-- Tienda -->
+                <button
+                    id="village-shop"
+                    class="world-building village-shop"
+                    type="button"
+                    aria-label="Tienda"
+                >
+                    <span class="shop-roof"></span>
+                    <span class="shop-body"></span>
+
+                    <span class="shop-sign">
+                        TIENDA
+                    </span>
+                </button>
+
+                <!-- Casa de pistas -->
+                <button
+                    id="hint-house"
+                    class="world-building hint-house"
+                    type="button"
+                    aria-label="Casa extraña"
+                >
+                    <span class="house-roof"></span>
+                    <span class="house-body"></span>
+                    <span class="house-door"></span>
+                </button>
+
+                <!--
+                Rana aparecerá posteriormente
+                cerca del río.
+                -->
+                <div
+                    id="rana-location"
+                    class="rana-location hidden"
+                    aria-hidden="true"
+                ></div>
+
+                <!-- Letrero de entrada -->
+                <div class="village-name-sign">
+                    <div class="village-sign-board">
+
+                        <span class="sign-small">
+                            BIENVENIDO A
+                        </span>
+
+                        <span class="sign-name">
+                            ALDEA DE SAPOPINGA
+                        </span>
+
+                    </div>
+
+                    <div class="village-sign-post"></div>
+                </div>
+
+                <!-- Sergio - personaje jugable -->
+                <div
+                    id="village-player"
+                    class="village-player"
+                    aria-label="Jugador"
+                >
+                    <img
+                        id="village-player-sprite"
+                        class="player-sprite"
+                        src="assets/characters/sergio/front-idle.png"
+                        alt=""
+                        draggable="false"
+                    >
+                </div>
+
+                <!-- Controles -->
+                <div
+                    id="movement-controls"
+                    class="movement-controls"
+                    aria-label="Controles de movimiento"
+                >
+                    <button
+                        class="move-button move-up"
+                        data-direction="up"
+                        type="button"
+                        aria-label="Mover arriba"
+                    >
+                        ▲
+                    </button>
+
+                    <button
+                        class="move-button move-left"
+                        data-direction="left"
+                        type="button"
+                        aria-label="Mover izquierda"
+                    >
+                        ◀
+                    </button>
+
+                    <button
+                        class="move-button move-right"
+                        data-direction="right"
+                        type="button"
+                        aria-label="Mover derecha"
+                    >
+                        ▶
+                    </button>
+
+                    <button
+                        class="move-button move-down"
+                        data-direction="down"
+                        type="button"
+                        aria-label="Mover abajo"
+                    >
+                        ▼
+                    </button>
+                </div>
+
+            </div>
+
+            <!-- Diálogo general de la aldea -->
+            <div
+                id="village-dialog"
+                class="dialog-box hidden"
+            >
+                <p
+                    id="village-dialog-name"
+                    class="dialog-name mystery-name"
+                >
+                    ...
+                </p>
+
+                <p
+                    id="village-dialog-text"
+                    class="dialog-text"
+                ></p>
+
+                <button
+                    id="village-dialog-close"
+                    class="dialog-next"
+                    type="button"
+                    aria-label="Cerrar diálogo"
+                >
+                    ▼
+                </button>
+            </div>
+        </section>
+
+
+        <!--
+        ========================================
+        PANTALLA 6: CASA DEL TESORO
+        ========================================
+        -->
+        <section
+            id="treasure-screen"
+            class="screen"
             aria-label="Casa misteriosa"
         >
-            <span class="house-roof"></span>
-            <span class="house-body"></span>
-            <span class="house-door"></span>
-        </button>
+            <div class="game-scene treasure-room">
 
-        <!-- Tienda -->
-        <button
-            id="village-shop"
-            class="world-building village-shop"
-            type="button"
-            aria-label="Tienda"
-        >
-            <span class="shop-roof"></span>
-            <span class="shop-body"></span>
-            <span class="shop-sign">
-                TIENDA
-            </span>
-        </button>
+                <button
+                    id="treasure-back"
+                    class="scene-back"
+                    type="button"
+                >
+                    ◀ Salir
+                </button>
 
-        <!-- Casa de pistas -->
-        <button
-            id="hint-house"
-            class="world-building hint-house"
-            type="button"
-            aria-label="Casa extraña"
-        >
-            <span class="house-roof"></span>
-            <span class="house-body"></span>
-            <span class="house-door"></span>
-        </button>
+                <div class="treasure-room-content">
 
-        <!-- Rana aparecerá posteriormente aquí -->
-        <div
-            id="rana-location"
-            class="rana-location hidden"
-            aria-hidden="true"
-        ></div>
-
-        <!-- Sergio - personaje jugable -->
-        <div
-            id="village-player"
-            class="village-player"
-            aria-label="Jugador"
-        >
-            <img
-                id="village-player-sprite"
-                class="player-sprite"
-                src="assets/characters/sergio/front-idle.png"
-                alt=""
-                draggable="false"
-            >
-        </div>
-
-        <!-- Controles -->
-        <div
-            id="movement-controls"
-            class="movement-controls"
-            aria-label="Controles de movimiento"
-        >
-            <button
-                class="move-button move-up"
-                data-direction="up"
-                type="button"
-                aria-label="Mover arriba"
-            >
-                ▲
-            </button>
-
-            <button
-                class="move-button move-left"
-                data-direction="left"
-                type="button"
-                aria-label="Mover izquierda"
-            >
-                ◀
-            </button>
-
-            <button
-                class="move-button move-right"
-                data-direction="right"
-                type="button"
-                aria-label="Mover derecha"
-            >
-                ▶
-            </button>
-
-            <button
-                class="move-button move-down"
-                data-direction="down"
-                type="button"
-                aria-label="Mover abajo"
-            >
-                ▼
-            </button>
-        </div>
-
-    </div>
-
-    <!-- Diálogo general de la aldea -->
-    <div
-        id="village-dialog"
-        class="dialog-box hidden"
-    >
-        <p
-            id="village-dialog-name"
-            class="dialog-name mystery-name"
-        >
-            ...
-        </p>
-
-        <p
-            id="village-dialog-text"
-            class="dialog-text"
-        ></p>
-
-        <button
-            id="village-dialog-close"
-            class="dialog-next"
-            type="button"
-            aria-label="Cerrar diálogo"
-        >
-            ▼
-        </button>
-    </div>
-
-</section>
-
-
-<!--
-========================================
-PANTALLA 6: CASA DEL TESORO
-========================================
--->
-<section
-    id="treasure-screen"
-    class="screen"
-    aria-label="Casa misteriosa"
->
-    <div class="game-scene treasure-room">
-
-        <button
-            id="treasure-back"
-            class="scene-back"
-            type="button"
-        >
-            ◀ Salir
-        </button>
-
-        <div class="treasure-room-content">
-
-            <p class="treasure-symbol">
-                ?
-            </p>
-
-            <p class="treasure-room-message">
-                Parece que alguien dejó algo aquí.
-            </p>
-
-            <button
-                id="activate-treasure-map"
-                class="primary-button treasure-button"
-                type="button"
-            >
-                Examinar
-            </button>
-
-        </div>
-
-    </div>
-</section>
-
-
-<!--
-========================================
-PANTALLA 7: MAPA DEL TESORO
-========================================
--->
-<section
-    id="treasure-map-screen"
-    class="screen"
-    aria-label="Mapa del tesoro"
->
-    <div class="treasure-map-interface">
-
-        <div class="treasure-map-header">
-
-            <p class="map-status">
-                BUSCANDO...
-            </p>
-
-            <p
-                id="location-status"
-                class="location-status"
-            >
-                Esperando señal.
-            </p>
-
-        </div>
-
-        <div class="house-map">
-
-            <div class="map-room room-one">
-                <span>Habitación</span>
-            </div>
-
-            <div class="map-room room-two">
-                <span>Zona principal</span>
-            </div>
-
-            <div class="map-room room-three">
-                <span>?</span>
-            </div>
-
-            <div class="treasure-marker">
-                ×
-            </div>
-
-        </div>
-
-        <p class="map-message">
-            El tesoro está más cerca de lo que parece.
-        </p>
-
-        <button
-            id="close-treasure-map"
-            class="secondary-button"
-            type="button"
-        >
-            Volver
-        </button>
-
-    </div>
-</section>
-        >
-            <div class="game-scene outside-scene">
-
-                <div class="scene-label">
-                    ???
-                </div>
-
-                <div class="temporary-message">
-                    <p>
-                        El camino continúa...
+                    <p class="treasure-symbol">
+                        ?
                     </p>
 
-                    <p class="small-text">
-                        Próximamente: Río Universidad
+                    <p class="treasure-room-message">
+                        Parece que alguien dejó algo aquí.
                     </p>
+
+                    <button
+                        id="activate-treasure-map"
+                        class="primary-button treasure-button"
+                        type="button"
+                    >
+                        Examinar
+                    </button>
+
                 </div>
+
+            </div>
+        </section>
+
+
+        <!--
+        ========================================
+        PANTALLA 7: MAPA DEL TESORO
+        ========================================
+        -->
+        <section
+            id="treasure-map-screen"
+            class="screen"
+            aria-label="Mapa del tesoro"
+        >
+            <div class="treasure-map-interface">
+
+                <div class="treasure-map-header">
+
+                    <p class="map-status">
+                        BUSCANDO...
+                    </p>
+
+                    <p
+                        id="location-status"
+                        class="location-status"
+                    >
+                        Esperando señal.
+                    </p>
+
+                </div>
+
+                <!--
+                Este croquis es provisional.
+                Posteriormente lo sustituiremos
+                por el croquis real de la casa.
+                -->
+                <div class="house-map">
+
+                    <div class="map-room room-one">
+                        <span>
+                            Habitación
+                        </span>
+                    </div>
+
+                    <div class="map-room room-two">
+                        <span>
+                            Zona principal
+                        </span>
+                    </div>
+
+                    <div class="map-room room-three">
+                        <span>
+                            ?
+                        </span>
+                    </div>
+
+                    <div class="treasure-marker">
+                        ×
+                    </div>
+
+                </div>
+
+                <p class="map-message">
+                    El tesoro está más cerca de lo que parece.
+                </p>
+
+                <button
+                    id="close-treasure-map"
+                    class="secondary-button"
+                    type="button"
+                >
+                    Volver
+                </button>
 
             </div>
         </section>
@@ -548,4 +552,3 @@ PANTALLA 7: MAPA DEL TESORO
     <script src="game.js"></script>
 </body>
 </html>
-
