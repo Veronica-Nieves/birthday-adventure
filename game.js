@@ -1,3 +1,4 @@
+
 /* =========================================
    UNA PEQUEÑA AVENTURA
    Motor base del juego
@@ -13,26 +14,46 @@ const screens = {
     wake: document.getElementById("wake-screen"),
     name: document.getElementById("name-screen"),
     room: document.getElementById("room-screen"),
-    outside: document.getElementById("outside-screen")
+    outside: document.getElementById("outside-screen"),
+    treasure: document.getElementById("treasure-screen"),
+    treasureMap: document.getElementById("treasure-map-screen")
 };
 
-const startButton = document.getElementById("start-button");
+const startButton =
+    document.getElementById("start-button");
 
-const wakeMessage = document.getElementById("wake-message");
-const wakeButton = document.getElementById("wake-button");
+const wakeMessage =
+    document.getElementById("wake-message");
 
-const nameForm = document.getElementById("name-form");
-const playerNameInput = document.getElementById("player-name-input");
+const wakeButton =
+    document.getElementById("wake-button");
 
-const roomObject = document.getElementById("room-object");
-const roomExit = document.getElementById("room-exit");
+const nameForm =
+    document.getElementById("name-form");
 
-const roomDialog = document.getElementById("room-dialog");
-const roomDialogName = document.getElementById("room-dialog-name");
-const roomDialogText = document.getElementById("room-dialog-text");
-const roomDialogNext = document.getElementById("room-dialog-next");
+const playerNameInput =
+    document.getElementById("player-name-input");
 
-const fadeLayer = document.getElementById("fade-layer");
+const roomObject =
+    document.getElementById("room-object");
+
+const roomExit =
+    document.getElementById("room-exit");
+
+const roomDialog =
+    document.getElementById("room-dialog");
+
+const roomDialogName =
+    document.getElementById("room-dialog-name");
+
+const roomDialogText =
+    document.getElementById("room-dialog-text");
+
+const roomDialogNext =
+    document.getElementById("room-dialog-next");
+
+const fadeLayer =
+    document.getElementById("fade-layer");
 
 const villagePlayer =
     document.getElementById("village-player");
@@ -52,6 +73,7 @@ const defaultGameState = {
     started: false,
     playerName: "",
     currentScene: "title",
+
     roomObjectFound: false,
     roomVisited: false,
 
@@ -71,21 +93,26 @@ let roomDialogStep = 0;
    ========================================= */
 
 function loadGameState() {
-    const savedState = localStorage.getItem("birthdayAdventureState");
+    const savedState =
+        localStorage.getItem("birthdayAdventureState");
 
     if (!savedState) {
         return { ...defaultGameState };
     }
 
     try {
-        const parsedState = JSON.parse(savedState);
+        const parsedState =
+            JSON.parse(savedState);
 
         return {
             ...defaultGameState,
             ...parsedState
         };
     } catch (error) {
-        console.error("No se pudo cargar la partida.", error);
+        console.error(
+            "No se pudo cargar la partida.",
+            error
+        );
 
         return { ...defaultGameState };
     }
@@ -106,34 +133,44 @@ function saveGameState() {
 
 function showScreen(screenName) {
     Object.values(screens).forEach((screen) => {
-        screen.classList.remove("active");
+        if (screen) {
+            screen.classList.remove("active");
+        }
     });
 
-    const nextScreen = screens[screenName];
+    const nextScreen =
+        screens[screenName];
 
     if (!nextScreen) {
-        console.error(`Pantalla no encontrada: ${screenName}`);
+        console.error(
+            `Pantalla no encontrada: ${screenName}`
+        );
+
         return;
     }
 
     nextScreen.classList.add("active");
 
     gameState.currentScene = screenName;
+
     saveGameState();
 }
 
 
-function transitionTo(screenName, callback = null) {
+function transitionTo(
+    screenName,
+    callback = null
+) {
     fadeLayer.classList.add("visible");
 
-    setTimeout(() => {
+    window.setTimeout(() => {
         showScreen(screenName);
 
         if (callback) {
             callback();
         }
 
-        setTimeout(() => {
+        window.setTimeout(() => {
             fadeLayer.classList.remove("visible");
         }, 120);
     }, 650);
@@ -146,6 +183,7 @@ function transitionTo(screenName, callback = null) {
 
 startButton.addEventListener("click", () => {
     gameState.started = true;
+
     saveGameState();
 
     wakeStep = 0;
@@ -169,7 +207,8 @@ const wakeMessages = [
 
 
 function showWakeMessage() {
-    wakeMessage.textContent = wakeMessages[wakeStep];
+    wakeMessage.textContent =
+        wakeMessages[wakeStep];
 }
 
 
@@ -178,6 +217,7 @@ wakeButton.addEventListener("click", () => {
 
     if (wakeStep < wakeMessages.length) {
         showWakeMessage();
+
         return;
     }
 
@@ -191,24 +231,28 @@ wakeButton.addEventListener("click", () => {
    NOMBRE DEL JUGADOR
    ========================================= */
 
-nameForm.addEventListener("submit", (event) => {
-    event.preventDefault();
+nameForm.addEventListener(
+    "submit",
+    (event) => {
+        event.preventDefault();
 
-    const playerName = playerNameInput.value.trim();
+        const playerName =
+            playerNameInput.value.trim();
 
-    if (!playerName) {
-        return;
+        if (!playerName) {
+            return;
+        }
+
+        gameState.playerName = playerName;
+        gameState.roomVisited = true;
+
+        saveGameState();
+
+        transitionTo("room", () => {
+            startRoom();
+        });
     }
-
-    gameState.playerName = playerName;
-    gameState.roomVisited = true;
-
-    saveGameState();
-
-    transitionTo("room", () => {
-        startRoom();
-    });
-});
+);
 
 
 /* =========================================
@@ -259,29 +303,41 @@ roomObject.addEventListener("click", () => {
 });
 
 
-roomDialogNext.addEventListener("click", () => {
-    roomDialogStep += 1;
+roomDialogNext.addEventListener(
+    "click",
+    () => {
+        roomDialogStep += 1;
 
-    if (roomDialogStep < roomObjectDialog.length) {
-        showRoomDialog(
-            roomObjectDialog[roomDialogStep]
-        );
+        if (
+            roomDialogStep <
+            roomObjectDialog.length
+        ) {
+            showRoomDialog(
+                roomObjectDialog[
+                    roomDialogStep
+                ]
+            );
 
-        return;
+            return;
+        }
+
+        gameState.roomObjectFound = true;
+
+        saveGameState();
+
+        hideRoomDialog();
+
+        roomObject.style.display = "none";
     }
-
-    gameState.roomObjectFound = true;
-    saveGameState();
-
-    hideRoomDialog();
-
-    roomObject.style.display = "none";
-});
+);
 
 
 function showRoomDialog(dialog) {
-    roomDialogName.textContent = dialog.name;
-    roomDialogText.textContent = dialog.text;
+    roomDialogName.textContent =
+        dialog.name;
+
+    roomDialogText.textContent =
+        dialog.text;
 
     roomDialog.classList.remove("hidden");
 }
@@ -308,46 +364,75 @@ roomExit.addEventListener("click", () => {
         return;
     }
 
-        transitionTo("outside", () => {
+    transitionTo("outside", () => {
         renderVillagePlayer();
     });
 });
+
+
+/* =========================================
+   SPRITES DE SERGIO
+   ========================================= */
+
+const playerSprites = {
+    front: {
+        idle:
+            "assets/characters/sergio/front-idle.png",
+
+        walk:
+            "assets/characters/sergio/front-walk.png"
+    },
+
+    back: {
+        idle:
+            "assets/characters/sergio/back-idle.png",
+
+        walk:
+            "assets/characters/sergio/back-walk.png"
+    },
+
+    left: {
+        idle:
+            "assets/characters/sergio/left-idle.png",
+
+        walk:
+            "assets/characters/sergio/left-walk.png"
+    },
+
+    right: {
+        idle:
+            "assets/characters/sergio/right-idle.png",
+
+        walk:
+            "assets/characters/sergio/right-walk.png"
+    }
+};
+
 
 /* =========================================
    MOVIMIENTO EN ALDEA DE SAPOPINGA
    ========================================= */
 
-const playerSprites = {
-    front: {
-        idle: "assets/characters/sergio/front-idle.png",
-        walk: "assets/characters/sergio/front-walk.png"
-    },
-
-    back: {
-        idle: "assets/characters/sergio/back-idle.png",
-        walk: "assets/characters/sergio/back-walk.png"
-    },
-
-    left: {
-        idle: "assets/characters/sergio/left-idle.png",
-        walk: "assets/characters/sergio/left-walk.png"
-    },
-
-    right: {
-        idle: "assets/characters/sergio/right-idle.png",
-        walk: "assets/characters/sergio/right-walk.png"
-    }
-};
-
 const playerMovement = {
-    step: 3,
+    step: 1.1,
 
     minX: 5,
     maxX: 95,
 
     minY: 47,
-    maxY: 92
+    maxY: 92,
+
+    repeatDelay: 85
 };
+
+let activeDirection = null;
+let movementTimer = null;
+let walkFrame = false;
+
+
+/* =========================================
+   DIBUJAR A SERGIO
+   ========================================= */
 
 function renderVillagePlayer() {
     villagePlayer.style.left =
@@ -356,9 +441,24 @@ function renderVillagePlayer() {
     villagePlayer.style.top =
         `${gameState.playerY}%`;
 
-    villagePlayerSprite.src =
-        playerSprites[gameState.playerDirection].idle;
+    setPlayerSprite("idle");
 }
+
+
+function setPlayerSprite(state) {
+    const direction =
+        gameState.playerDirection;
+
+    const sprite =
+        playerSprites[direction][state];
+
+    villagePlayerSprite.src = sprite;
+}
+
+
+/* =========================================
+   REALIZAR UN PASO
+   ========================================= */
 
 function moveVillagePlayer(direction) {
     let nextX = gameState.playerX;
@@ -386,19 +486,30 @@ function moveVillagePlayer(direction) {
 
     nextX = Math.max(
         playerMovement.minX,
-        Math.min(playerMovement.maxX, nextX)
+        Math.min(
+            playerMovement.maxX,
+            nextX
+        )
     );
 
     nextY = Math.max(
         playerMovement.minY,
-        Math.min(playerMovement.maxY, nextY)
+        Math.min(
+            playerMovement.maxY,
+            nextY
+        )
     );
 
     gameState.playerX = nextX;
     gameState.playerY = nextY;
 
-    villagePlayerSprite.src =
-        playerSprites[gameState.playerDirection].walk;
+    walkFrame = !walkFrame;
+
+    if (walkFrame) {
+        setPlayerSprite("walk");
+    } else {
+        setPlayerSprite("idle");
+    }
 
     villagePlayer.style.left =
         `${gameState.playerX}%`;
@@ -407,20 +518,204 @@ function moveVillagePlayer(direction) {
         `${gameState.playerY}%`;
 
     saveGameState();
-
-    window.setTimeout(() => {
-        villagePlayerSprite.src =
-            playerSprites[gameState.playerDirection].idle;
-    }, 140);
 }
 
-movementButtons.forEach((button) => {
-    button.addEventListener("click", () => {
-        const direction = button.dataset.direction;
 
-        moveVillagePlayer(direction);
-    });
+/* =========================================
+   INICIAR MOVIMIENTO CONTINUO
+   ========================================= */
+
+function startMovement(direction) {
+    stopMovement(false);
+
+    activeDirection = direction;
+
+    moveVillagePlayer(direction);
+
+    movementTimer = window.setInterval(
+        () => {
+            if (!activeDirection) {
+                return;
+            }
+
+            moveVillagePlayer(
+                activeDirection
+            );
+        },
+        playerMovement.repeatDelay
+    );
+}
+
+
+/* =========================================
+   DETENER MOVIMIENTO
+   ========================================= */
+
+function stopMovement(showIdle = true) {
+    activeDirection = null;
+
+    if (movementTimer !== null) {
+        window.clearInterval(
+            movementTimer
+        );
+
+        movementTimer = null;
+    }
+
+    walkFrame = false;
+
+    if (
+        showIdle &&
+        villagePlayerSprite
+    ) {
+        setPlayerSprite("idle");
+    }
+}
+
+
+/* =========================================
+   CONTROLES TÁCTILES
+   ========================================= */
+
+movementButtons.forEach((button) => {
+    button.addEventListener(
+        "pointerdown",
+        (event) => {
+            event.preventDefault();
+
+            const direction =
+                button.dataset.direction;
+
+            if (!direction) {
+                return;
+            }
+
+            try {
+                button.setPointerCapture(
+                    event.pointerId
+                );
+            } catch (error) {
+                /*
+                Algunos navegadores pueden
+                ignorar pointer capture.
+                El movimiento sigue funcionando.
+                */
+            }
+
+            startMovement(direction);
+        }
+    );
+
+    button.addEventListener(
+        "pointerup",
+        (event) => {
+            event.preventDefault();
+
+            stopMovement();
+        }
+    );
+
+    button.addEventListener(
+        "pointercancel",
+        () => {
+            stopMovement();
+        }
+    );
+
+    button.addEventListener(
+        "lostpointercapture",
+        () => {
+            stopMovement();
+        }
+    );
+
+    button.addEventListener(
+        "contextmenu",
+        (event) => {
+            event.preventDefault();
+        }
+    );
 });
+
+
+/* =========================================
+   CONTROLES DE TECLADO
+   ========================================= */
+
+const keyboardDirections = {
+    ArrowUp: "up",
+    ArrowDown: "down",
+    ArrowLeft: "left",
+    ArrowRight: "right"
+};
+
+
+document.addEventListener(
+    "keydown",
+    (event) => {
+        const direction =
+            keyboardDirections[event.key];
+
+        if (!direction) {
+            return;
+        }
+
+        if (
+            gameState.currentScene !==
+            "outside"
+        ) {
+            return;
+        }
+
+        event.preventDefault();
+
+        if (
+            activeDirection === direction
+        ) {
+            return;
+        }
+
+        startMovement(direction);
+    }
+);
+
+
+document.addEventListener(
+    "keyup",
+    (event) => {
+        const direction =
+            keyboardDirections[event.key];
+
+        if (!direction) {
+            return;
+        }
+
+        event.preventDefault();
+
+        stopMovement();
+    }
+);
+
+
+/* =========================================
+   SEGURIDAD AL CAMBIAR DE PESTAÑA
+   ========================================= */
+
+window.addEventListener(
+    "blur",
+    () => {
+        stopMovement();
+    }
+);
+
+document.addEventListener(
+    "visibilitychange",
+    () => {
+        if (document.hidden) {
+            stopMovement();
+        }
+    }
+);
 
 
 /* =========================================
@@ -429,10 +724,11 @@ movementButtons.forEach((button) => {
 
 function restoreGame() {
     /*
-    Por ahora siempre mostramos la portada al abrir
-    nuevamente la página.
+    Por ahora siempre mostramos la portada
+    al abrir nuevamente la página.
 
     Más adelante añadiremos:
+
     CONTINUAR AVENTURA
     NUEVA PARTIDA
     */
@@ -440,9 +736,16 @@ function restoreGame() {
     showScreen("title");
 
     if (gameState.playerName) {
-        playerNameInput.value = gameState.playerName;
+        playerNameInput.value =
+            gameState.playerName;
     }
+
+    renderVillagePlayer();
 }
 
+
+/* =========================================
+   INICIAR
+   ========================================= */
 
 restoreGame();
