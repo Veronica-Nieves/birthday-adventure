@@ -2,7 +2,12 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0, viewport-fit=cover"
+    >
+
+    <meta name="theme-color" content="#090b10">
 
     <title>Una pequeña aventura</title>
 
@@ -12,42 +17,245 @@
 <body>
     <main id="game">
 
-        <section id="start-screen" class="screen active">
-            <div class="start-content">
-                <p class="eyebrow">UNA PEQUEÑA</p>
+        <!--
+        ========================================
+        PANTALLA 1: TÍTULO
+        ========================================
+        -->
+        <section
+            id="title-screen"
+            class="screen active"
+            aria-label="Pantalla de inicio"
+        >
+            <div class="title-background">
+                <div class="title-content">
 
-                <h1>
-                    AVENTURA
-                    <span>PARA TI</span>
-                </h1>
+                    <p class="title-small">
+                        UNA PEQUEÑA
+                    </p>
 
-                <button id="start-button" class="game-button">
-                    ▶ Comenzar
+                    <h1 class="game-title">
+                        AVENTURA
+                    </h1>
+
+                    <p class="title-subtitle">
+                        PARA TI
+                    </p>
+
+                    <button
+                        id="start-button"
+                        class="primary-button"
+                        type="button"
+                    >
+                        ▶ Comenzar
+                    </button>
+
+                </div>
+            </div>
+        </section>
+
+
+        <!--
+        ========================================
+        PANTALLA 2: DESPERTAR
+        ========================================
+        -->
+        <section
+            id="wake-screen"
+            class="screen"
+            aria-label="Inicio de la aventura"
+        >
+            <div class="dark-scene">
+
+                <div class="center-message">
+                    <p id="wake-message">
+                        ...
+                    </p>
+                </div>
+
+                <button
+                    id="wake-button"
+                    class="invisible-action"
+                    type="button"
+                    aria-label="Continuar"
+                >
+                    Continuar
+                </button>
+
+            </div>
+        </section>
+
+
+        <!--
+        ========================================
+        PANTALLA 3: NOMBRE
+        ========================================
+        -->
+        <section
+            id="name-screen"
+            class="screen"
+            aria-label="Nombre del jugador"
+        >
+            <div class="name-scene">
+
+                <div class="name-panel">
+
+                    <p class="mystery-label">
+                        ???
+                    </p>
+
+                    <p class="name-question">
+                        Antes de continuar...
+                        <br>
+                        ¿cómo te llamas?
+                    </p>
+
+                    <form id="name-form">
+
+                        <input
+                            id="player-name-input"
+                            class="name-input"
+                            type="text"
+                            maxlength="20"
+                            autocomplete="off"
+                            placeholder="Escribe tu nombre"
+                            required
+                        >
+
+                        <button
+                            class="primary-button"
+                            type="submit"
+                        >
+                            Confirmar
+                        </button>
+
+                    </form>
+
+                </div>
+
+            </div>
+        </section>
+
+
+        <!--
+        ========================================
+        PANTALLA 4: HABITACIÓN
+        ========================================
+        -->
+        <section
+            id="room-screen"
+            class="screen"
+            aria-label="Habitación"
+        >
+            <div id="room-scene" class="game-scene room-scene">
+
+                <div class="scene-label">
+                    HABITACIÓN
+                </div>
+
+                <!--
+                Más adelante sustituiremos este bloque
+                por el asset oficial de Sergio.
+                -->
+                <div
+                    id="player"
+                    class="player-placeholder"
+                    aria-label="Personaje del jugador"
+                >
+                    <div class="player-hat"></div>
+                    <div class="player-head"></div>
+                    <div class="player-body"></div>
+                </div>
+
+                <button
+                    id="room-object"
+                    class="interactive-object"
+                    type="button"
+                    aria-label="Examinar objeto"
+                >
+                    !
+                </button>
+
+                <button
+                    id="room-exit"
+                    class="scene-exit"
+                    type="button"
+                >
+                    Salir
+                    <span>▶</span>
+                </button>
+
+            </div>
+
+            <div
+                id="room-dialog"
+                class="dialog-box hidden"
+            >
+                <p
+                    id="room-dialog-name"
+                    class="dialog-name mystery-name"
+                >
+                    ...
+                </p>
+
+                <p
+                    id="room-dialog-text"
+                    class="dialog-text"
+                ></p>
+
+                <button
+                    id="room-dialog-next"
+                    class="dialog-next"
+                    type="button"
+                    aria-label="Continuar diálogo"
+                >
+                    ▼
                 </button>
             </div>
         </section>
 
-        <section id="intro-screen" class="screen">
-            <div class="scene">
-                <div class="placeholder-world">
-                    <div class="placeholder-character">
-                        🐸
-                    </div>
+
+        <!--
+        ========================================
+        PANTALLA 5: EXTERIOR
+        Próximo paso.
+        ========================================
+        -->
+        <section
+            id="outside-screen"
+            class="screen"
+            aria-label="Exterior"
+        >
+            <div class="game-scene outside-scene">
+
+                <div class="scene-label">
+                    ???
                 </div>
 
-                <div class="dialog-box">
-                    <p class="character-name">Rana</p>
-
-                    <p id="dialog-text">
-                        Buenos días...
+                <div class="temporary-message">
+                    <p>
+                        El camino continúa...
                     </p>
 
-                    <button id="continue-button" class="continue-button">
-                        ▼
-                    </button>
+                    <p class="small-text">
+                        Próximamente: Río Universidad
+                    </p>
                 </div>
+
             </div>
         </section>
+
+
+        <!--
+        ========================================
+        TRANSICIÓN
+        ========================================
+        -->
+        <div
+            id="fade-layer"
+            class="fade-layer"
+            aria-hidden="true"
+        ></div>
 
     </main>
 
