@@ -1135,7 +1135,7 @@ button {
 }
 
 /* =========================================
-   SERGIO - SPRITE OFICIAL EN LA ALDEA
+   SERGIO - PERSONAJE JUGABLE
    ========================================= */
 
 .village-player {
@@ -1145,32 +1145,33 @@ button {
     left: 50%;
     top: 79%;
 
-    width: 72px;
-    height: 96px;
+    width: 58px;
+    height: 78px;
 
-    transform: translate(-50%, -50%);
-
-    transition:
-        left 0.12s linear,
-        top 0.12s linear;
+    transform: translate(-50%, -100%);
 
     pointer-events: none;
+
+    transition:
+        left 0.10s linear,
+        top 0.10s linear;
 }
 
 .player-sprite {
+    display: block;
+
     width: 100%;
     height: 100%;
 
-    background-image:
-        url("assets/characters/sergio/sergio-spritesheet.png");
-
-    background-repeat: no-repeat;
+    object-fit: contain;
+    object-position: center bottom;
 
     image-rendering: pixelated;
-    image-rendering: crisp-edges;
 
-    transform-origin: center bottom;
+    user-select: none;
+    pointer-events: none;
 }
+
 /* =========================================
    CONTROLES
    ========================================= */
