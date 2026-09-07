@@ -166,7 +166,7 @@
                     >
                 </div>
 
-                <!-- Salida de la habitación -->
+                <!-- Salida -->
                 <button
                     id="room-exit"
                     class="room-exit-button"
@@ -178,6 +178,7 @@
 
             </div>
 
+            <!-- Diálogo de la habitación -->
             <div
                 id="room-dialog"
                 class="dialog-box hidden"
@@ -221,15 +222,17 @@
                 class="game-scene village-scene"
             >
 
+                <!-- Fondo -->
                 <div class="village-sky"></div>
                 <div class="village-hills"></div>
 
+                <!-- Río -->
                 <div class="river"></div>
 
                 <!--
-                Los letreros existen físicamente,
-                pero su texto se descubrirá
-                mediante el botón A.
+                ========================================
+                LETRERO DEL RÍO
+                ========================================
                 -->
                 <div
                     id="river-sign"
@@ -245,7 +248,14 @@
                     <div class="sign-post"></div>
                 </div>
 
-                <!-- Casa decorativa -->
+
+                <!--
+                ========================================
+                EDIFICIOS EXISTENTES
+                ========================================
+                -->
+
+                <!-- Casa cerrada -->
                 <button
                     id="closed-house"
                     class="world-building closed-house"
@@ -302,14 +312,30 @@
                     <span class="house-door"></span>
                 </button>
 
-                <!-- Ubicación futura de Rana -->
-                <div
-                    id="rana-location"
-                    class="rana-location hidden"
-                    aria-hidden="true"
-                ></div>
 
-                <!-- Letrero de entrada -->
+                <!--
+                ========================================
+                CASA INICIAL
+                Sergio acaba de salir de aquí
+                ========================================
+                -->
+                <div
+                    id="starting-house"
+                    class="world-building starting-house"
+                    aria-label="Casa inicial"
+                >
+                    <span class="house-roof"></span>
+                    <span class="house-body"></span>
+                    <span class="house-door"></span>
+                </div>
+
+
+                <!--
+                ========================================
+                LETRERO DE SAPOPINGA
+                El texto está oculto inicialmente
+                ========================================
+                -->
                 <div
                     id="village-name-sign"
                     class="village-name-sign undiscovered"
@@ -334,7 +360,57 @@
                     <div class="village-sign-post"></div>
                 </div>
 
-                <!-- Sergio - personaje jugable -->
+
+                <!--
+                ========================================
+                POSTE DE ALTAVOCES
+                ========================================
+                -->
+                <div
+                    id="speaker-post"
+                    class="speaker-post"
+                    data-interaction="speaker"
+                    aria-label="Poste con altavoces"
+                >
+                    <div class="speaker-cluster">
+
+                        <span
+                            class="speaker speaker-left"
+                        ></span>
+
+                        <span
+                            class="speaker speaker-center"
+                        ></span>
+
+                        <span
+                            class="speaker speaker-right"
+                        ></span>
+
+                    </div>
+
+                    <div class="speaker-pole"></div>
+
+                    <div class="speaker-base"></div>
+                </div>
+
+
+                <!--
+                ========================================
+                FUTURA UBICACIÓN DE RANA
+                ========================================
+                -->
+                <div
+                    id="rana-location"
+                    class="rana-location hidden"
+                    aria-hidden="true"
+                ></div>
+
+
+                <!--
+                ========================================
+                SERGIO
+                ========================================
+                -->
                 <div
                     id="village-player"
                     class="village-player"
@@ -349,9 +425,10 @@
                     >
                 </div>
 
+
                 <!--
                 ========================================
-                CRUCETA - ESQUINA INFERIOR IZQUIERDA
+                CRUCETA
                 ========================================
                 -->
                 <div
@@ -396,9 +473,10 @@
                     </button>
                 </div>
 
+
                 <!--
                 ========================================
-                BOTÓN A - INTERACCIÓN
+                BOTÓN A
                 ========================================
                 -->
                 <div
@@ -422,7 +500,12 @@
 
             </div>
 
-            <!-- Diálogo general de la aldea -->
+
+            <!--
+            ========================================
+            DIÁLOGO GENERAL DE LA ALDEA
+            ========================================
+            -->
             <div
                 id="village-dialog"
                 class="dialog-box hidden"
