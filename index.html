@@ -106,9 +106,8 @@
                     </p>
 
                     <p class="name-question">
-                        Antes de continuar...
-                        <br>
-                        ¿cómo te llamas?
+                        Antes de continuar,
+                        introduce tu nombre.
                     </p>
 
                     <form id="name-form">
@@ -119,7 +118,7 @@
                             type="text"
                             maxlength="20"
                             autocomplete="off"
-                            placeholder="Escribe tu nombre"
+                            placeholder="Nombre"
                             required
                         >
 
@@ -153,37 +152,24 @@
                 class="game-scene room-scene"
             >
 
-                <div class="scene-label">
-                    HABITACIÓN
-                </div>
-
-                <!--
-                Personaje provisional de la habitación.
-                Posteriormente utilizaremos aquí
-                el sprite oficial de Sergio.
-                -->
+                <!-- Sergio oficial -->
                 <div
-                    id="player"
-                    class="player-placeholder"
-                    aria-label="Personaje del jugador"
+                    id="room-player"
+                    class="room-player"
+                    aria-label="Jugador"
                 >
-                    <div class="player-hat"></div>
-                    <div class="player-head"></div>
-                    <div class="player-body"></div>
+                    <img
+                        class="room-player-sprite"
+                        src="assets/characters/sergio/front-idle.png"
+                        alt=""
+                        draggable="false"
+                    >
                 </div>
 
-                <button
-                    id="room-object"
-                    class="interactive-object"
-                    type="button"
-                    aria-label="Examinar objeto"
-                >
-                    !
-                </button>
-
+                <!-- Salida de la habitación -->
                 <button
                     id="room-exit"
-                    class="scene-exit"
+                    class="room-exit-button"
                     type="button"
                 >
                     Salir
@@ -228,24 +214,32 @@
         <section
             id="outside-screen"
             class="screen"
-            aria-label="Aldea de Sapopinga"
+            aria-label="Aldea"
         >
             <div
                 id="village-scene"
                 class="game-scene village-scene"
             >
 
-                <!-- Fondo lejano -->
                 <div class="village-sky"></div>
                 <div class="village-hills"></div>
 
-                <!-- Río -->
                 <div class="river"></div>
 
-                <!-- Letrero de Río Universidad -->
-                <div class="river-sign">
+                <!--
+                Los letreros existen físicamente,
+                pero su texto se descubrirá
+                mediante el botón A.
+                -->
+                <div
+                    id="river-sign"
+                    class="river-sign undiscovered"
+                    data-interaction="river-sign"
+                >
                     <div class="sign-board">
-                        RÍO UNIVERSIDAD
+                        <span class="hidden-place-name">
+                            RÍO UNIVERSIDAD
+                        </span>
                     </div>
 
                     <div class="sign-post"></div>
@@ -256,19 +250,21 @@
                     id="closed-house"
                     class="world-building closed-house"
                     type="button"
-                    aria-label="Casa"
+                    aria-label="Edificio"
+                    tabindex="-1"
                 >
                     <span class="house-roof"></span>
                     <span class="house-body"></span>
                     <span class="house-door"></span>
                 </button>
 
-                <!-- Casa del tesoro -->
+                <!-- Casa misteriosa -->
                 <button
                     id="treasure-house"
                     class="world-building treasure-house"
                     type="button"
-                    aria-label="Casa misteriosa"
+                    aria-label="Edificio"
+                    tabindex="-1"
                 >
                     <span class="house-roof"></span>
                     <span class="house-body"></span>
@@ -278,34 +274,35 @@
                 <!-- Tienda -->
                 <button
                     id="village-shop"
-                    class="world-building village-shop"
+                    class="world-building village-shop undiscovered"
                     type="button"
-                    aria-label="Tienda"
+                    aria-label="Edificio"
+                    tabindex="-1"
                 >
                     <span class="shop-roof"></span>
                     <span class="shop-body"></span>
 
                     <span class="shop-sign">
-                        TIENDA
+                        <span class="hidden-place-name">
+                            TIENDA
+                        </span>
                     </span>
                 </button>
 
-                <!-- Casa de pistas -->
+                <!-- Casa desconocida -->
                 <button
                     id="hint-house"
                     class="world-building hint-house"
                     type="button"
-                    aria-label="Casa extraña"
+                    aria-label="Edificio"
+                    tabindex="-1"
                 >
                     <span class="house-roof"></span>
                     <span class="house-body"></span>
                     <span class="house-door"></span>
                 </button>
 
-                <!--
-                Rana aparecerá posteriormente
-                cerca del río.
-                -->
+                <!-- Ubicación futura de Rana -->
                 <div
                     id="rana-location"
                     class="rana-location hidden"
@@ -313,14 +310,22 @@
                 ></div>
 
                 <!-- Letrero de entrada -->
-                <div class="village-name-sign">
+                <div
+                    id="village-name-sign"
+                    class="village-name-sign undiscovered"
+                    data-interaction="village-sign"
+                >
                     <div class="village-sign-board">
 
-                        <span class="sign-small">
+                        <span
+                            class="sign-small hidden-place-name"
+                        >
                             BIENVENIDO A
                         </span>
 
-                        <span class="sign-name">
+                        <span
+                            class="sign-name hidden-place-name"
+                        >
                             ALDEA DE SAPOPINGA
                         </span>
 
@@ -344,7 +349,11 @@
                     >
                 </div>
 
-                <!-- Controles -->
+                <!--
+                ========================================
+                CRUCETA - ESQUINA INFERIOR IZQUIERDA
+                ========================================
+                -->
                 <div
                     id="movement-controls"
                     class="movement-controls"
@@ -387,6 +396,30 @@
                     </button>
                 </div>
 
+                <!--
+                ========================================
+                BOTÓN A - INTERACCIÓN
+                ========================================
+                -->
+                <div
+                    id="action-controls"
+                    class="action-controls"
+                >
+                    <span
+                        id="action-label"
+                        class="action-label"
+                    ></span>
+
+                    <button
+                        id="action-button"
+                        class="action-button"
+                        type="button"
+                        aria-label="Interactuar"
+                    >
+                        A
+                    </button>
+                </div>
+
             </div>
 
             <!-- Diálogo general de la aldea -->
@@ -420,7 +453,7 @@
 
         <!--
         ========================================
-        PANTALLA 6: CASA DEL TESORO
+        PANTALLA 6: CASA MISTERIOSA
         ========================================
         -->
         <section
@@ -489,11 +522,6 @@
 
                 </div>
 
-                <!--
-                Este croquis es provisional.
-                Posteriormente lo sustituiremos
-                por el croquis real de la casa.
-                -->
                 <div class="house-map">
 
                     <div class="map-room room-one">
