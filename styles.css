@@ -796,3 +796,782 @@ button {
             scale(0.88);
     }
 }
+
+/* =========================================
+   ALDEA DE SAPOPINGA
+   HUB PRINCIPAL
+   ========================================= */
+
+.village-scene {
+    position: relative;
+    overflow: hidden;
+
+    background:
+        linear-gradient(
+            to bottom,
+            #6685a1 0%,
+            #9ba89a 38%,
+            #60754c 39%,
+            #415832 100%
+        );
+}
+
+/* =========================================
+   CIELO Y COLINAS
+   ========================================= */
+
+.village-sky {
+    position: absolute;
+    inset: 0 0 60%;
+
+    background:
+        linear-gradient(
+            to bottom,
+            #597b9f,
+            #9caeaa
+        );
+}
+
+.village-hills {
+    position: absolute;
+
+    left: -10%;
+    right: -10%;
+    top: 25%;
+
+    height: 25%;
+
+    background: #344b34;
+
+    clip-path: polygon(
+        0 100%,
+        0 70%,
+        12% 45%,
+        23% 72%,
+        35% 35%,
+        48% 68%,
+        61% 42%,
+        72% 70%,
+        84% 38%,
+        100% 65%,
+        100% 100%
+    );
+}
+
+/* =========================================
+   RÍO
+   ========================================= */
+
+.river {
+    position: absolute;
+
+    top: 31%;
+    left: -8%;
+
+    width: 116%;
+    height: 16%;
+
+    transform: rotate(-3deg);
+
+    background:
+        repeating-linear-gradient(
+            170deg,
+            #527d8c 0,
+            #527d8c 16px,
+            #6494a0 17px,
+            #6494a0 20px
+        );
+
+    border-top: 5px solid #314f4e;
+    border-bottom: 5px solid #314f4e;
+}
+
+/* =========================================
+   LETRERO: RÍO UNIVERSIDAD
+   ========================================= */
+
+.river-sign {
+    position: absolute;
+    z-index: 6;
+
+    top: 25%;
+    right: 8%;
+
+    width: 125px;
+
+    transform: rotate(2deg);
+}
+
+.sign-board {
+    position: relative;
+    z-index: 2;
+
+    padding: 9px 7px;
+
+    border: 3px solid #49301e;
+
+    background: #9a6635;
+    color: #2c1b10;
+
+    text-align: center;
+
+    font-size: 10px;
+    font-weight: bold;
+    line-height: 1.15;
+
+    box-shadow:
+        inset 0 -5px 0 rgba(67, 37, 17, 0.2),
+        4px 4px 0 rgba(0, 0, 0, 0.22);
+}
+
+.sign-post {
+    width: 13px;
+    height: 45px;
+
+    margin: -2px auto 0;
+
+    background: #694324;
+
+    border-left: 2px solid #412815;
+    border-right: 2px solid #412815;
+}
+
+/* =========================================
+   LETRERO: ALDEA DE SAPOPINGA
+   ========================================= */
+
+.village-name-sign {
+    position: absolute;
+    z-index: 7;
+
+    left: 6%;
+    bottom: 22%;
+
+    width: 145px;
+
+    transform: rotate(-2deg);
+}
+
+.village-sign-board {
+    position: relative;
+    z-index: 2;
+
+    padding: 8px;
+
+    border: 3px solid #4c301c;
+
+    background: #a26d38;
+    color: #2b1b0f;
+
+    text-align: center;
+
+    box-shadow:
+        inset 0 -6px 0 rgba(72, 41, 18, 0.18),
+        4px 4px 0 rgba(0, 0, 0, 0.25);
+}
+
+.sign-small {
+    display: block;
+
+    margin-bottom: 3px;
+
+    font-size: 7px;
+}
+
+.sign-name {
+    display: block;
+
+    font-size: 10px;
+    font-weight: bold;
+    line-height: 1.1;
+}
+
+.village-sign-post {
+    display: block;
+
+    width: 14px;
+    height: 55px;
+
+    margin: -2px auto 0;
+
+    background: #694324;
+
+    border-left: 2px solid #412815;
+    border-right: 2px solid #412815;
+}
+
+/* =========================================
+   EDIFICIOS
+   ========================================= */
+
+.world-building {
+    position: absolute;
+    z-index: 5;
+
+    width: 86px;
+    height: 90px;
+
+    padding: 0;
+
+    border: 0;
+
+    background: transparent;
+
+    cursor: pointer;
+}
+
+.house-body,
+.shop-body {
+    position: absolute;
+
+    left: 10px;
+    right: 10px;
+    bottom: 0;
+
+    height: 58px;
+
+    border: 3px solid #49352a;
+
+    background: #aa805c;
+
+    box-shadow:
+        inset -8px -8px 0 rgba(66, 44, 30, 0.14),
+        4px 5px 0 rgba(0, 0, 0, 0.2);
+}
+
+.house-roof,
+.shop-roof {
+    position: absolute;
+    z-index: 2;
+
+    top: 4px;
+    left: 2px;
+
+    width: 82px;
+    height: 42px;
+
+    background: #6c3d32;
+
+    clip-path: polygon(
+        50% 0,
+        100% 100%,
+        0 100%
+    );
+}
+
+.house-door {
+    position: absolute;
+    z-index: 3;
+
+    left: 35px;
+    bottom: 0;
+
+    width: 22px;
+    height: 36px;
+
+    border: 2px solid #3d291f;
+
+    background: #5b3a27;
+}
+
+.closed-house {
+    top: 49%;
+    left: 8%;
+}
+
+.treasure-house {
+    top: 47%;
+    right: 8%;
+}
+
+.treasure-house .house-body {
+    background: #88775d;
+}
+
+.treasure-house .house-roof {
+    background: #4e4b49;
+}
+
+.village-shop {
+    top: 67%;
+    left: 25%;
+}
+
+.shop-roof {
+    background: #806142;
+}
+
+.shop-sign {
+    position: absolute;
+    z-index: 5;
+
+    left: 20px;
+    bottom: 34px;
+
+    width: 48px;
+
+    padding: 4px 2px;
+
+    border: 2px solid #49301e;
+
+    background: #d1a456;
+    color: #34200e;
+
+    font-size: 8px;
+    font-weight: bold;
+}
+
+.hint-house {
+    top: 66%;
+    right: 22%;
+}
+
+.hint-house .house-body {
+    background: #655c71;
+}
+
+.hint-house .house-roof {
+    background: #393342;
+}
+
+/* =========================================
+   SERGIO PROVISIONAL EN LA ALDEA
+   ========================================= */
+
+.village-player {
+    position: absolute;
+    z-index: 15;
+
+    left: 50%;
+    top: 79%;
+
+    width: 42px;
+    height: 60px;
+
+    transform: translate(-50%, -50%);
+
+    transition:
+        left 0.14s linear,
+        top 0.14s linear;
+}
+
+.mini-head {
+    position: absolute;
+
+    top: 16px;
+    left: 7px;
+
+    width: 28px;
+    height: 26px;
+
+    border-radius: 9px;
+
+    background: #e7b28c;
+}
+
+.mini-head::before,
+.mini-head::after {
+    content: "";
+
+    position: absolute;
+    top: 11px;
+
+    width: 3px;
+    height: 6px;
+
+    background: #151515;
+}
+
+.mini-head::before {
+    left: 7px;
+}
+
+.mini-head::after {
+    right: 7px;
+}
+
+.mini-body {
+    position: absolute;
+
+    left: 9px;
+    bottom: 0;
+
+    width: 24px;
+    height: 24px;
+
+    background:
+        linear-gradient(
+            90deg,
+            #111318 0 25%,
+            #e1ded5 25% 75%,
+            #111318 75%
+        );
+}
+
+.mini-hat {
+    position: absolute;
+    z-index: 2;
+
+    top: 0;
+    left: 4px;
+
+    width: 34px;
+    height: 20px;
+
+    border-bottom: 4px solid #d9a62e;
+
+    background: #111318;
+
+    box-shadow:
+        -4px 5px 0 -1px #111318,
+        4px 5px 0 -1px #111318;
+}
+
+/* =========================================
+   CONTROLES
+   ========================================= */
+
+.movement-controls {
+    position: absolute;
+    z-index: 30;
+
+    right: 15px;
+    bottom: calc(18px + var(--safe-bottom));
+
+    display: grid;
+
+    grid-template-columns:
+        48px
+        48px
+        48px;
+
+    grid-template-rows:
+        48px
+        48px
+        48px;
+
+    gap: 3px;
+}
+
+.move-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 48px;
+    height: 48px;
+
+    border: 2px solid #798493;
+    border-radius: 7px;
+
+    background: rgba(8, 11, 17, 0.78);
+    color: #e8e5da;
+
+    font-size: 18px;
+
+    box-shadow:
+        inset 0 0 0 2px rgba(35, 43, 54, 0.7);
+
+    touch-action: manipulation;
+
+    user-select: none;
+}
+
+.move-button:active {
+    transform: scale(0.94);
+
+    background: rgba(52, 66, 82, 0.9);
+}
+
+.move-up {
+    grid-column: 2;
+    grid-row: 1;
+}
+
+.move-left {
+    grid-column: 1;
+    grid-row: 2;
+}
+
+.move-right {
+    grid-column: 3;
+    grid-row: 2;
+}
+
+.move-down {
+    grid-column: 2;
+    grid-row: 3;
+}
+
+/* =========================================
+   UBICACIÓN FUTURA DE RANA
+   ========================================= */
+
+.rana-location {
+    position: absolute;
+    z-index: 10;
+
+    top: 34%;
+    left: 44%;
+
+    width: 55px;
+    height: 45px;
+
+    border-radius: 50%;
+
+    background: rgba(79, 150, 67, 0.55);
+}
+
+.rana-location.hidden {
+    display: none;
+}
+
+/* =========================================
+   CASA DEL TESORO
+   ========================================= */
+
+.treasure-room {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background:
+        linear-gradient(
+            to bottom,
+            #3e3934,
+            #29251f 60%,
+            #3b2c22 61%,
+            #241a15
+        );
+}
+
+.scene-back {
+    position: absolute;
+    z-index: 10;
+
+    top: max(15px, env(safe-area-inset-top));
+    left: 15px;
+
+    padding: 9px 12px;
+
+    border: 2px solid #707a86;
+
+    background: rgba(8, 11, 17, 0.86);
+    color: var(--text);
+}
+
+.treasure-room-content {
+    width: min(85%, 360px);
+
+    padding: 26px 20px;
+
+    border: 3px solid #697482;
+
+    background: rgba(8, 11, 17, 0.9);
+
+    text-align: center;
+
+    box-shadow:
+        5px 5px 0 rgba(0, 0, 0, 0.3);
+}
+
+.treasure-symbol {
+    margin: 0 0 15px;
+
+    color: var(--yellow);
+
+    font-size: 55px;
+}
+
+.treasure-room-message {
+    margin: 0;
+
+    line-height: 1.5;
+}
+
+.treasure-button {
+    margin-top: 25px;
+}
+
+/* =========================================
+   INTERFAZ DEL MAPA DEL TESORO
+   ========================================= */
+
+.treasure-map-interface {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    width: 100%;
+    height: 100%;
+
+    padding:
+        max(30px, env(safe-area-inset-top))
+        20px
+        calc(25px + var(--safe-bottom));
+
+    overflow-y: auto;
+
+    background: #0c1014;
+}
+
+.treasure-map-header {
+    width: min(100%, 420px);
+
+    text-align: center;
+}
+
+.map-status {
+    margin: 0;
+
+    color: var(--yellow);
+
+    font-size: 20px;
+    font-weight: bold;
+    letter-spacing: 2px;
+}
+
+.location-status {
+    min-height: 42px;
+
+    margin: 12px 0 20px;
+
+    color: #9eabb5;
+
+    font-size: 13px;
+    line-height: 1.5;
+}
+
+/* Croquis provisional */
+
+.house-map {
+    position: relative;
+
+    width: min(88vw, 360px);
+    height: 310px;
+
+    border: 5px solid #463624;
+
+    background: #d2b37b;
+
+    box-shadow:
+        inset 0 0 0 3px #947649,
+        6px 6px 0 rgba(0, 0, 0, 0.35);
+}
+
+.map-room {
+    position: absolute;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border: 3px solid #5c482d;
+
+    color: #50391f;
+
+    font-size: 10px;
+    text-align: center;
+}
+
+.room-one {
+    top: 15px;
+    left: 15px;
+
+    width: 48%;
+    height: 42%;
+}
+
+.room-two {
+    right: 15px;
+    bottom: 15px;
+
+    width: 52%;
+    height: 47%;
+}
+
+.room-three {
+    left: 15px;
+    bottom: 15px;
+
+    width: 35%;
+    height: 38%;
+}
+
+.treasure-marker {
+    position: absolute;
+
+    right: 20%;
+    bottom: 24%;
+
+    color: #a82922;
+
+    font-size: 50px;
+    font-weight: bold;
+
+    animation: treasure-pulse 1s infinite;
+}
+
+@keyframes treasure-pulse {
+    0%,
+    100% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.18);
+    }
+}
+
+.map-message {
+    width: min(100%, 390px);
+
+    margin: 22px 0;
+
+    text-align: center;
+
+    line-height: 1.5;
+}
+
+.secondary-button {
+    padding: 11px 18px;
+
+    border: 2px solid #707a86;
+
+    background: #242b34;
+    color: var(--text);
+}
+
+/* =========================================
+   MÓVILES PEQUEÑOS
+   ========================================= */
+
+@media (max-height: 700px) {
+    .world-building {
+        transform: scale(0.85);
+    }
+
+    .village-name-sign {
+        transform:
+            rotate(-2deg)
+            scale(0.88);
+
+        transform-origin: bottom left;
+    }
+
+    .river-sign {
+        transform:
+            rotate(2deg)
+            scale(0.88);
+
+        transform-origin: bottom right;
+    }
+
+    .movement-controls {
+        transform: scale(0.88);
+        transform-origin: bottom right;
+    }
+}
+
+
+
