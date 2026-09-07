@@ -1135,7 +1135,7 @@ button {
 }
 
 /* =========================================
-   SERGIO PROVISIONAL EN LA ALDEA
+   SERGIO - SPRITE OFICIAL EN LA ALDEA
    ========================================= */
 
 .village-player {
@@ -1145,88 +1145,32 @@ button {
     left: 50%;
     top: 79%;
 
-    width: 42px;
-    height: 60px;
+    width: 72px;
+    height: 96px;
 
     transform: translate(-50%, -50%);
 
     transition:
-        left 0.14s linear,
-        top 0.14s linear;
+        left 0.12s linear,
+        top 0.12s linear;
+
+    pointer-events: none;
 }
 
-.mini-head {
-    position: absolute;
+.player-sprite {
+    width: 100%;
+    height: 100%;
 
-    top: 16px;
-    left: 7px;
+    background-image:
+        url("assets/characters/sergio/sergio-spritesheet.png");
 
-    width: 28px;
-    height: 26px;
+    background-repeat: no-repeat;
 
-    border-radius: 9px;
+    image-rendering: pixelated;
+    image-rendering: crisp-edges;
 
-    background: #e7b28c;
+    transform-origin: center bottom;
 }
-
-.mini-head::before,
-.mini-head::after {
-    content: "";
-
-    position: absolute;
-    top: 11px;
-
-    width: 3px;
-    height: 6px;
-
-    background: #151515;
-}
-
-.mini-head::before {
-    left: 7px;
-}
-
-.mini-head::after {
-    right: 7px;
-}
-
-.mini-body {
-    position: absolute;
-
-    left: 9px;
-    bottom: 0;
-
-    width: 24px;
-    height: 24px;
-
-    background:
-        linear-gradient(
-            90deg,
-            #111318 0 25%,
-            #e1ded5 25% 75%,
-            #111318 75%
-        );
-}
-
-.mini-hat {
-    position: absolute;
-    z-index: 2;
-
-    top: 0;
-    left: 4px;
-
-    width: 34px;
-    height: 20px;
-
-    border-bottom: 4px solid #d9a62e;
-
-    background: #111318;
-
-    box-shadow:
-        -4px 5px 0 -1px #111318,
-        4px 5px 0 -1px #111318;
-}
-
 /* =========================================
    CONTROLES
    ========================================= */
