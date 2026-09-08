@@ -883,15 +883,15 @@ button {
 
 
 /* =========================================
-   LETRERO: ALDEA
+   LETRERO: ALDEA DE SAPOPINGA
    ========================================= */
 
 .village-name-sign {
     position: absolute;
     z-index: 12;
 
-    left: 5%;
-    bottom: 19%;
+    left: 12%;
+    bottom: 31%;
 
     width: 145px;
 
@@ -953,7 +953,6 @@ button {
 
     background: #694324;
 }
-
 
 /* =========================================
    EDIFICIOS
@@ -1065,6 +1064,40 @@ button {
 /* =========================================
    POSICIONES DE EDIFICIOS
    ========================================= */
+.starting-house {
+    left: 42%;
+    bottom: 7%;
+
+    pointer-events: none;
+}
+
+.starting-house .house-body {
+    background:
+        linear-gradient(
+            90deg,
+            #9b7658,
+            #c0946c 55%,
+            #8a6249
+        );
+}
+
+.starting-house .house-roof {
+    background:
+        linear-gradient(
+            to bottom,
+            #785047,
+            #56372f
+        );
+}
+
+.starting-house .house-door {
+    background:
+        linear-gradient(
+            90deg,
+            #503223,
+            #725039
+        );
+}
 
 .closed-house {
     top: 49%;
@@ -1152,6 +1185,174 @@ button {
         );
 }
 
+
+/* =========================================
+   POSTE DE ALTAVOCES
+   ========================================= */
+
+.speaker-post {
+    position: absolute;
+    z-index: 13;
+
+    top: 48%;
+    left: 48%;
+
+    width: 70px;
+    height: 150px;
+
+    transform: translateX(-50%);
+
+    pointer-events: none;
+}
+
+.speaker-cluster {
+    position: absolute;
+    z-index: 3;
+
+    top: 0;
+    left: 50%;
+
+    width: 70px;
+    height: 46px;
+
+    transform: translateX(-50%);
+}
+
+.speaker {
+    position: absolute;
+
+    width: 30px;
+    height: 20px;
+
+    border: 3px solid #252a2c;
+    border-radius: 3px;
+
+    background:
+        linear-gradient(
+            to bottom,
+            #747a76,
+            #3f4645
+        );
+
+    box-shadow:
+        inset 0 0 0 2px #252b2b,
+        3px 3px 0 rgba(0, 0, 0, 0.22);
+}
+
+.speaker::after {
+    content: "";
+
+    position: absolute;
+
+    top: 4px;
+    left: 5px;
+
+    width: 13px;
+    height: 7px;
+
+    background: #181c1d;
+
+    clip-path: polygon(
+        0 0,
+        100% 22%,
+        100% 78%,
+        0 100%
+    );
+}
+
+.speaker-left {
+    top: 11px;
+    left: 0;
+
+    transform: rotate(-15deg);
+}
+
+.speaker-center {
+    top: 0;
+    left: 20px;
+}
+
+.speaker-right {
+    top: 11px;
+    right: 0;
+
+    transform: rotate(15deg);
+}
+
+.speaker-pole {
+    position: absolute;
+
+    top: 37px;
+    left: 50%;
+
+    width: 10px;
+    height: 105px;
+
+    transform: translateX(-50%);
+
+    border-left: 2px solid #373a35;
+    border-right: 2px solid #262925;
+
+    background:
+        linear-gradient(
+            90deg,
+            #4d5048,
+            #707166,
+            #444740
+        );
+
+    box-shadow:
+        3px 3px 0 rgba(0, 0, 0, 0.18);
+}
+
+.speaker-base {
+    position: absolute;
+
+    left: 50%;
+    bottom: 0;
+
+    width: 28px;
+    height: 10px;
+
+    transform: translateX(-50%);
+
+    border: 2px solid #33362f;
+
+    background: #67675c;
+}
+
+
+/* =========================================
+   POSTE REPRODUCIENDO AUDIO
+   ========================================= */
+
+.speaker-post.playing .speaker-left::before,
+.speaker-post.playing .speaker-right::before {
+    content: ")))";
+
+    position: absolute;
+
+    top: -12px;
+
+    color: #f2ce55;
+
+    font-size: 10px;
+    font-weight: bold;
+
+    letter-spacing: -2px;
+}
+
+.speaker-post.playing .speaker-left::before {
+    left: -19px;
+
+    transform: rotate(15deg);
+}
+
+.speaker-post.playing .speaker-right::before {
+    right: -19px;
+
+    transform: rotate(-15deg);
+}
 
 /* =========================================
    SERGIO - PERSONAJE JUGABLE
