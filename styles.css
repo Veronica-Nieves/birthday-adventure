@@ -451,10 +451,10 @@ button {
     z-index: 10;
 
     left: 50%;
-    top: 72%;
+    top: 78%;
 
-    width: 58px;
-    height: 80px;
+    width: 116px;
+    height: 160px;
 
     transform: translate(-50%, -100%);
 
@@ -478,8 +478,6 @@ button {
 
     pointer-events: none;
 }
-
-
 /* =========================================
    SALIDA DE LA HABITACIÓN
    ========================================= */
