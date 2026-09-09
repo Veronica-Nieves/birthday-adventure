@@ -138,18 +138,8 @@ let activeDirection = null;
 let movementTimer = null;
 
 let currentInteraction = null;
-
 let dialogOpen = false;
 
-/*
-Fase de animación.
-
-Laterales:
-walk1 → idle → walk1 → idle
-
-Verticales:
-walk1 → idle → walk2 → idle
-*/
 let walkPhase = 0;
 
 
@@ -454,11 +444,6 @@ roomExit.addEventListener(
             return;
         }
 
-        /*
-        Sergio comienza en la parte
-        inferior de Sapopinga.
-        */
-
         gameState.playerX = 50;
         gameState.playerY = 88;
 
@@ -528,13 +513,6 @@ const playerSprites = {
 
 const playerMovement = {
     step: 1.25,
-
-    /*
-    Temporalmente permitimos recorrer
-    prácticamente todo el escenario.
-
-    Después añadiremos colisiones reales.
-    */
 
     minX: 3,
     maxX: 97,
@@ -639,4 +617,802 @@ function updateWalkingSprite() {
     const direction =
         gameState.playerDirection;
 
-   
+    /*
+    Izquierda y derecha:
+    walk → idle → walk → idle
+    */
+
+    if (
+        direction === "left" ||
+        direction === "right"
+    ) {
+        const lateralFrames = [
+            "walk1",
+            "idle"
+        ];
+
+        const frame =
+            lateralFrames[
+                walkPhase %
+                lateralFrames.length
+            ];
+
+        setPlayerSprite(
+            frame
+        );
+
+        walkPhase += 1;
+
+        return;
+    }
+
+    /*
+    Arriba y abajo:
+    pierna 1 → centro → pierna 2 → centro
+    */
+
+    const verticalFrames = [
+        "walk1",
+        "idle",
+        "walk2",
+        "idle"
+    ];
+
+    const frame =
+        verticalFrames[
+            walkPhase %
+            verticalFrames.length
+        ];
+
+    setPlayerSprite(
+        frame
+    );
+
+    walkPhase += 1;
+}
+
+
+/* =========================================
+   MOVIMIENTO LIBRE
+   ========================================= */
+
+function moveVillagePlayer(direction) {
+    if (
+        gameState.currentScene !==
+        "outside"
+    ) {
+        return;
+    }
+
+    if (dialogOpen) {
+        return;
+    }
+
+    let nextX =
+        gameState.playerX;
+
+    let nextY =
+        gameState.playerY;
+
+    if (direction === "up") {
+        nextY -=
+            playerMovement.step;
+
+        gameState.playerDirection =
+            "back";
+    }
+
+    if (direction === "down") {
+        nextY +=
+            playerMovement.step;
+
+        gameState.playerDirection =
+            "front";
+    }
+
+    if (direction === "left") {
+        nextX -=
+            playerMovement.step;
+
+        gameState.playerDirection =
+            "left";
+    }
+
+    if (direction === "right") {
+        nextX +=
+            playerMovement.step;
+
+        gameState.playerDirection =
+            "right";
+    }
+
+    nextX = Math.max(
+        playerMovement.minX,
+        Math.min(
+            playerMovement.maxX,
+            nextX
+        )
+    );
+
+    nextY = Math.max(
+        playerMovement.minY,
+        Math.min(
+            playerMovement.maxY,
+            nextY
+        )
+    );
+
+    gameState.playerX =
+        nextX;
+
+    gameState.playerY =
+        nextY;
+
+    updateWalkingSprite();
+
+    villagePlayer.style.left =
+        `${gameState.playerX}%`;
+
+    villagePlayer.style.top =
+        `${gameState.playerY}%`;
+
+    saveGameState();
+
+    updateInteraction();
+}
+
+
+/* =========================================
+   MOVIMIENTO CONTINUO
+   ========================================= */
+
+function startMovement(direction) {
+    if (
+        gameState.currentScene !==
+        "outside"
+    ) {
+        return;
+    }
+
+    if (dialogOpen) {
+        return;
+    }
+
+    stopMovement(false);
+
+    activeDirection =
+        direction;
+
+    walkPhase = 0;
+
+    moveVillagePlayer(
+        direction
+    );
+
+    movementTimer =
+        window.setInterval(
+            () => {
+                if (
+                    !activeDirection
+                ) {
+                    return;
+                }
+
+                moveVillagePlayer(
+                    activeDirection
+                );
+            },
+            playerMovement.repeatDelay
+        );
+}
+
+
+function stopMovement(
+    showIdle = true
+) {
+    activeDirection = null;
+
+    if (
+        movementTimer !== null
+    ) {
+        window.clearInterval(
+            movementTimer
+        );
+
+        movementTimer = null;
+    }
+
+    walkPhase = 0;
+
+    if (
+        showIdle &&
+        villagePlayerSprite &&
+        gameState.currentScene ===
+            "outside"
+    ) {
+        setPlayerSprite(
+            "idle"
+        );
+    }
+}
+
+
+/* =========================================
+   CONTROLES TÁCTILES
+   ========================================= */
+
+movementButtons.forEach(
+    (button) => {
+        button.addEventListener(
+            "pointerdown",
+            (event) => {
+                event.preventDefault();
+
+                const direction =
+                    button.dataset.direction;
+
+                if (!direction) {
+                    return;
+                }
+
+                startMovement(
+                    direction
+                );
+            }
+        );
+
+        button.addEventListener(
+            "pointerup",
+            (event) => {
+                event.preventDefault();
+
+                stopMovement();
+            }
+        );
+
+        button.addEventListener(
+            "pointercancel",
+            () => {
+                stopMovement();
+            }
+        );
+
+        button.addEventListener(
+            "contextmenu",
+            (event) => {
+                event.preventDefault();
+            }
+        );
+    }
+);
+
+
+/* =========================================
+   DETENER AL SOLTAR FUERA DEL BOTÓN
+   ========================================= */
+
+document.addEventListener(
+    "pointerup",
+    () => {
+        if (activeDirection) {
+            stopMovement();
+        }
+    }
+);
+
+document.addEventListener(
+    "pointercancel",
+    () => {
+        if (activeDirection) {
+            stopMovement();
+        }
+    }
+);
+
+
+/* =========================================
+   TECLADO
+   ========================================= */
+
+const keyboardDirections = {
+    ArrowUp: "up",
+    ArrowDown: "down",
+    ArrowLeft: "left",
+    ArrowRight: "right"
+};
+
+
+document.addEventListener(
+    "keydown",
+    (event) => {
+        const direction =
+            keyboardDirections[
+                event.key
+            ];
+
+        if (!direction) {
+            return;
+        }
+
+        if (
+            gameState.currentScene !==
+            "outside"
+        ) {
+            return;
+        }
+
+        event.preventDefault();
+
+        if (
+            activeDirection ===
+            direction
+        ) {
+            return;
+        }
+
+        startMovement(
+            direction
+        );
+    }
+);
+
+
+document.addEventListener(
+    "keyup",
+    (event) => {
+        const direction =
+            keyboardDirections[
+                event.key
+            ];
+
+        if (!direction) {
+            return;
+        }
+
+        event.preventDefault();
+
+        if (
+            activeDirection ===
+            direction
+        ) {
+            stopMovement();
+        }
+    }
+);
+
+
+/* =========================================
+   ZONAS DE INTERACCIÓN
+   ========================================= */
+
+const interactionAreas = [
+    {
+        id: "village-sign",
+
+        left: 7,
+        right: 40,
+
+        top: 60,
+        bottom: 78,
+
+        label: "LEER"
+    },
+
+    {
+        id: "speaker",
+
+        left: 38,
+        right: 59,
+
+        top: 56,
+        bottom: 75,
+
+        label: "ESCUCHAR"
+    },
+
+    {
+        id: "river-sign",
+
+        left: 66,
+        right: 98,
+
+        top: 23,
+        bottom: 47,
+
+        label: "LEER"
+    },
+
+    {
+        id: "treasure-house",
+
+        left: 67,
+        right: 97,
+
+        top: 58,
+        bottom: 70,
+
+        label: "ENTRAR"
+    },
+
+    {
+        id: "closed-house",
+
+        left: 5,
+        right: 33,
+
+        top: 58,
+        bottom: 70,
+
+        label: "TOCAR"
+    },
+
+    {
+        id: "shop",
+
+        left: 18,
+        right: 49,
+
+        top: 76,
+        bottom: 88,
+
+        label: "EXAMINAR"
+    },
+
+    {
+        id: "hint-house",
+
+        left: 55,
+        right: 87,
+
+        top: 76,
+        bottom: 88,
+
+        label: "EXAMINAR"
+    }
+];
+
+
+/* =========================================
+   UTILIDADES DE ZONAS
+   ========================================= */
+
+function isInsideArea(
+    x,
+    y,
+    area
+) {
+    return (
+        x >= area.left &&
+        x <= area.right &&
+        y >= area.top &&
+        y <= area.bottom
+    );
+}
+
+
+/* =========================================
+   DETECTAR INTERACCIONES
+   ========================================= */
+
+function updateInteraction() {
+    currentInteraction = null;
+
+    interactionAreas.forEach(
+        (area) => {
+            if (
+                isInsideArea(
+                    gameState.playerX,
+                    gameState.playerY,
+                    area
+                )
+            ) {
+                currentInteraction =
+                    area;
+            }
+        }
+    );
+
+    if (currentInteraction) {
+        actionControls.classList.add(
+            "available"
+        );
+
+        actionLabel.textContent =
+            currentInteraction.label;
+    } else {
+        actionControls.classList.remove(
+            "available"
+        );
+
+        actionLabel.textContent =
+            "";
+    }
+}
+
+
+/* =========================================
+   BOTÓN A
+   ========================================= */
+
+actionButton.addEventListener(
+    "click",
+    () => {
+        if (
+            gameState.currentScene !==
+            "outside"
+        ) {
+            return;
+        }
+
+        if (!currentInteraction) {
+            return;
+        }
+
+        stopMovement();
+
+        handleInteraction(
+            currentInteraction.id
+        );
+    }
+);
+
+
+/* =========================================
+   RESOLVER INTERACCIONES
+   ========================================= */
+
+function handleInteraction(
+    interactionId
+) {
+    if (
+        interactionId ===
+        "village-sign"
+    ) {
+        gameState.villageDiscovered =
+            true;
+
+        villageNameSign.classList.add(
+            "discovered"
+        );
+
+        saveGameState();
+
+        showVillageDialog(
+            "",
+            "ALDEA DE SAPOPINGA"
+        );
+
+        return;
+    }
+
+    if (
+        interactionId ===
+        "speaker"
+    ) {
+        gameState.speakerExamined =
+            true;
+
+        saveGameState();
+
+        showVillageDialog(
+            "",
+            "Se reproduce audio."
+        );
+
+        return;
+    }
+
+    if (
+        interactionId ===
+        "river-sign"
+    ) {
+        gameState.riverDiscovered =
+            true;
+
+        riverSign.classList.add(
+            "discovered"
+        );
+
+        saveGameState();
+
+        showVillageDialog(
+            "",
+            "RÍO UNIVERSIDAD"
+        );
+
+        return;
+    }
+
+    if (
+        interactionId ===
+        "treasure-house"
+    ) {
+        transitionTo(
+            "treasure"
+        );
+
+        return;
+    }
+
+    if (
+        interactionId ===
+        "closed-house"
+    ) {
+        showVillageDialog(
+            "",
+            "Parece que no hay nadie."
+        );
+
+        return;
+    }
+
+    if (
+        interactionId ===
+        "shop"
+    ) {
+        gameState.shopDiscovered =
+            true;
+
+        villageShop.classList.add(
+            "discovered"
+        );
+
+        saveGameState();
+
+        showVillageDialog(
+            "",
+            "Parece ser una pequeña tienda."
+        );
+
+        return;
+    }
+
+    if (
+        interactionId ===
+        "hint-house"
+    ) {
+        showVillageDialog(
+            "",
+            "La puerta está cerrada."
+        );
+    }
+}
+
+
+/* =========================================
+   DIÁLOGOS DE LA ALDEA
+   ========================================= */
+
+function showVillageDialog(
+    name,
+    text
+) {
+    dialogOpen = true;
+
+    stopMovement();
+
+    villageDialogName.textContent =
+        name;
+
+    villageDialogText.textContent =
+        text;
+
+    if (!name) {
+        villageDialogName.style.display =
+            "none";
+    } else {
+        villageDialogName.style.display =
+            "block";
+    }
+
+    villageDialog.classList.remove(
+        "hidden"
+    );
+}
+
+
+function hideVillageDialog() {
+    dialogOpen = false;
+
+    villageDialog.classList.add(
+        "hidden"
+    );
+
+    updateInteraction();
+}
+
+
+villageDialogClose.addEventListener(
+    "click",
+    () => {
+        hideVillageDialog();
+    }
+);
+
+
+/* =========================================
+   CASA MISTERIOSA
+   ========================================= */
+
+treasureBack.addEventListener(
+    "click",
+    () => {
+        transitionTo(
+            "outside",
+            () => {
+                initializeVillage();
+            }
+        );
+    }
+);
+
+
+activateTreasureMap.addEventListener(
+    "click",
+    () => {
+        transitionTo(
+            "treasureMap"
+        );
+    }
+);
+
+
+closeTreasureMap.addEventListener(
+    "click",
+    () => {
+        transitionTo(
+            "treasure"
+        );
+    }
+);
+
+
+/* =========================================
+   SEGURIDAD
+   ========================================= */
+
+window.addEventListener(
+    "blur",
+    () => {
+        stopMovement();
+    }
+);
+
+
+document.addEventListener(
+    "visibilitychange",
+    () => {
+        if (document.hidden) {
+            stopMovement();
+        }
+    }
+);
+
+
+/* =========================================
+   RECUPERAR PARTIDA
+   ========================================= */
+
+function restoreGame() {
+    showScreen(
+        "title"
+    );
+
+    if (
+        gameState.playerName
+    ) {
+        playerNameInput.value =
+            gameState.playerName;
+    }
+
+    applyDiscoveries();
+
+    renderVillagePlayer();
+}
+
+
+/* =========================================
+   INICIAR
+   ========================================= */
+
+restoreGame();
