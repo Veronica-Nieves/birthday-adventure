@@ -61,8 +61,9 @@ let enterVillageCallback =
    ========================================= */
 
 const roomMessages = [
-    "Algo está pasando afuera.",
-    "Tal vez deberías averiguar qué está pasando.",
+    "Afuera empieza a amanecer.",
+    "Parece que algo está pasando afuera.",
+    "Tal vez deberías averiguar de qué se trata.",
     "..."
 ];
 
