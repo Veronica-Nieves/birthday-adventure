@@ -58,29 +58,29 @@ const playerSprites = {
         idle:
             "assets/characters/sergio/front-idle.png",
 
-        walk1:
-            "assets/characters/sergio/front-walk.png",
+        walkRight:
+            "assets/characters/sergio/front-walk-right.png",
 
-        walk2:
-            "assets/characters/sergio/front-walk-2.png"
+        walkLeft:
+            "assets/characters/sergio/front-walk-left.png"
     },
 
     back: {
         idle:
             "assets/characters/sergio/back-idle.png",
 
-        walk1:
-            "assets/characters/sergio/back-walk.png",
+        walkRight:
+            "assets/characters/sergio/back-walk-right.png",
 
-        walk2:
-            "assets/characters/sergio/back-walk-2.png"
+        walkLeft:
+            "assets/characters/sergio/back-walk-left.png"
     },
 
     left: {
         idle:
             "assets/characters/sergio/left-idle.png",
 
-        walk1:
+        walk:
             "assets/characters/sergio/left-walk.png"
     },
 
@@ -88,7 +88,7 @@ const playerSprites = {
         idle:
             "assets/characters/sergio/right-idle.png",
 
-        walk1:
+        walk:
             "assets/characters/sergio/right-walk.png"
     }
 };
@@ -165,9 +165,12 @@ function updateWalkingSprite() {
         gameState.playerDirection;
 
     /*
-    Izquierda y derecha:
+    IZQUIERDA Y DERECHA
 
-    walk → idle → walk → idle
+    walk
+    idle
+    walk
+    idle
     */
 
     if (
@@ -175,7 +178,7 @@ function updateWalkingSprite() {
         direction === "right"
     ) {
         const lateralFrames = [
-            "walk1",
+            "walk",
             "idle"
         ];
 
@@ -195,18 +198,18 @@ function updateWalkingSprite() {
     }
 
     /*
-    Arriba y abajo:
+    ARRIBA Y ABAJO
 
-    pierna 1
+    pierna derecha
     centro
-    pierna 2
+    pierna izquierda
     centro
     */
 
     const verticalFrames = [
-        "walk1",
+        "walkRight",
         "idle",
-        "walk2",
+        "walkLeft",
         "idle"
     ];
 
