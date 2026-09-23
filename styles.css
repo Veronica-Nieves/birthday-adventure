@@ -1353,6 +1353,40 @@ button {
 }
 
 /* =========================================
+   RANA - NPC
+   ========================================= */
+
+   .village-rana {
+       position: absolute;
+       z-index: 16;
+   
+       left: 30%;
+       top: 62%;
+   
+       width: 72px;
+   
+       transform: translate(-50%, -100%);
+   
+       pointer-events: none;
+   }
+   
+   .village-rana-sprite {
+       display: block;
+   
+       width: 100%;
+       height: auto;
+   
+       image-rendering: pixelated;
+   
+       user-select: none;
+       -webkit-user-select: none;
+       -webkit-user-drag: none;
+   
+       pointer-events: none;
+   }
+
+
+/* =========================================
    SERGIO - PERSONAJE JUGABLE
    ========================================= */
 
