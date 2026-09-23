@@ -133,6 +133,18 @@ const interactionAreas = [
         label: "ESCUCHAR"
     },
 
+   {
+       id: "rana",
+   
+       left: 22,
+       right: 38,
+   
+       top: 54,
+       bottom: 70,
+   
+       label: "HABLAR"
+   },
+   
     {
         id: "river-sign",
 
