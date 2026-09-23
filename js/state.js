@@ -21,6 +21,16 @@ const defaultGameState = {
 
     roomIntroCompleted: false,
 
+    storyStage: 1,
+
+    ranaMet: false,
+    ranaFollowing: false,
+
+    riverUnlocked: false,
+
+    ranaMapObtained: false,
+    chestFound: false,
+
     playerX: 50,
     playerY: 88,
 
