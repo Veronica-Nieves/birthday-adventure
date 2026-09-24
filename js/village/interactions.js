@@ -103,6 +103,15 @@ let interactionsInitialized =
 let villageReturnCallback =
     null;
 
+let activeDialogSequence =
+    null;
+
+let activeDialogStep =
+    0;
+
+let activeDialogFinishCallback =
+    null;
+
 /* =========================================
    DIÁLOGO INICIAL DE RANA
    ========================================= */
@@ -284,6 +293,31 @@ export function updateInteraction() {
     }
 }
 
+/* =========================================
+   INICIAR SECUENCIA DE DIÁLOGO
+   ========================================= */
+
+function startDialogSequence(
+    name,
+    messages,
+    finishCallback = null
+) {
+    activeDialogSequence =
+        messages;
+
+    activeDialogStep =
+        0;
+
+    activeDialogFinishCallback =
+        finishCallback;
+
+    showVillageDialog(
+        name,
+        activeDialogSequence[
+            activeDialogStep
+        ]
+    );
+}
 
 /* =========================================
    MOSTRAR DIÁLOGO
@@ -559,11 +593,51 @@ export function initializeInteractions() {
         true;
 
     villageDialogClose.addEventListener(
-        "click",
-        () => {
+    "click",
+    () => {
+        if (
+            activeDialogSequence
+        ) {
+            activeDialogStep += 1;
+
+            if (
+                activeDialogStep <
+                activeDialogSequence.length
+            ) {
+                villageDialogText.textContent =
+                    activeDialogSequence[
+                        activeDialogStep
+                    ];
+
+                return;
+            }
+
+            const finishCallback =
+                activeDialogFinishCallback;
+
+            activeDialogSequence =
+                null;
+
+            activeDialogStep =
+                0;
+
+            activeDialogFinishCallback =
+                null;
+
             hideVillageDialog();
+
+            if (
+                finishCallback
+            ) {
+                finishCallback();
+            }
+
+            return;
         }
-    );
+
+        hideVillageDialog();
+       }
+   );
 
     initializeActionButton();
 
