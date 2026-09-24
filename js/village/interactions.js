@@ -103,7 +103,24 @@ let interactionsInitialized =
 let villageReturnCallback =
     null;
 
+/* =========================================
+   DIÁLOGO INICIAL DE RANA
+   ========================================= */
 
+const ranaFirstDialog = [
+    "Me dijeron que vendrías. Ya te estaba esperando.",
+    "Pero como te tardaste tanto, ya hasta me iba a ir a Colombia.",
+    "Mira. Ya hasta me compré mi playera.",
+    "Pero ya que llegaste, te voy a entregar algo que es para ti.",
+    "Es un mapa.",
+    "Bueno... creo que es un mapa. Sospecho",
+    "Peeeeeero, lo deje en mi mansión.",
+    "Mi mansión está al otro lado del Río Universidad.",
+    "Y dice que es muy difícil cruzar.",
+    "Por suerte estás conmigo. Soy una rana que todo lo sabe.",
+    "Hasta me dicen Saponcio.",
+    "Sígueme."
+];
 /* =========================================
    ZONAS DE INTERACCIÓN
    ========================================= */
