@@ -1,4 +1,3 @@
-
 /* =========================================
    INTERACCIONES DE SAPOPINGA
 
@@ -112,6 +111,7 @@ let activeDialogStep =
 let activeDialogFinishCallback =
     null;
 
+
 /* =========================================
    DIÁLOGO INICIAL DE RANA
    ========================================= */
@@ -122,14 +122,16 @@ const ranaFirstDialog = [
     "Mira. Ya hasta me compré mi playera.",
     "Pero ya que llegaste, te voy a entregar algo que es para ti.",
     "Es un mapa.",
-    "Bueno... creo que es un mapa. Sospecho",
-    "Peeeeeero, lo deje en mi mansión.",
+    "Bueno... creo que es un mapa.",
+    "Peeeeeero, lo dejé en mi mansión.",
     "Mi mansión está al otro lado del Río Universidad.",
-    "Y dice que es muy difícil cruzar.",
+    "Y dicen que es muy difícil cruzar.",
     "Por suerte estás conmigo. Soy una rana que todo lo sabe.",
     "Hasta me dicen Saponcio.",
     "Sígueme."
 ];
+
+
 /* =========================================
    ZONAS DE INTERACCIÓN
    ========================================= */
@@ -159,18 +161,18 @@ const interactionAreas = [
         label: "ESCUCHAR"
     },
 
-   {
-       id: "rana",
-   
-       left: 22,
-       right: 38,
-   
-       top: 54,
-       bottom: 70,
-   
-       label: "HABLAR"
-   },
-   
+    {
+        id: "rana",
+
+        left: 22,
+        right: 38,
+
+        top: 54,
+        bottom: 70,
+
+        label: "HABLAR"
+    },
+
     {
         id: "river-sign",
 
@@ -281,6 +283,22 @@ export function updateInteraction() {
             "available"
         );
 
+        /*
+        El río cambia de acción después
+        de conocer a Rana.
+        */
+
+        if (
+            currentInteraction.id ===
+                "river-sign" &&
+            gameState.riverUnlocked
+        ) {
+            actionLabel.textContent =
+                "CRUZAR";
+
+            return;
+        }
+
         actionLabel.textContent =
             currentInteraction.label;
     } else {
@@ -292,6 +310,7 @@ export function updateInteraction() {
             "";
     }
 }
+
 
 /* =========================================
    INICIAR SECUENCIA DE DIÁLOGO
@@ -318,6 +337,7 @@ function startDialogSequence(
         ]
     );
 }
+
 
 /* =========================================
    MOSTRAR DIÁLOGO
@@ -377,6 +397,10 @@ function hideVillageDialog() {
 function handleInteraction(
     interactionId
 ) {
+    /* -----------------------------------------
+       LETRERO DE SAPOPINGA
+       ----------------------------------------- */
+
     if (
         interactionId ===
         "village-sign"
@@ -398,6 +422,11 @@ function handleInteraction(
         return;
     }
 
+
+    /* -----------------------------------------
+       ALTAVOZ
+       ----------------------------------------- */
+
     if (
         interactionId ===
         "speaker"
@@ -415,6 +444,65 @@ function handleInteraction(
         return;
     }
 
+
+    /* -----------------------------------------
+       RANA
+       ----------------------------------------- */
+
+    if (
+        interactionId ===
+        "rana"
+    ) {
+        /*
+        Si Sergio ya conoció a Rana,
+        no repetimos toda la presentación.
+        */
+
+        if (
+            gameState.ranaMet
+        ) {
+            showVillageDialog(
+                "Rana",
+                "¿Qué? ¿Ya olvidaste que tenemos que ir a mi mansión?"
+            );
+
+            return;
+        }
+
+        /*
+        Primera conversación con Rana.
+        */
+
+        startDialogSequence(
+            "Rana",
+            ranaFirstDialog,
+            () => {
+                gameState.ranaMet =
+                    true;
+
+                gameState.ranaFollowing =
+                    true;
+
+                gameState.riverUnlocked =
+                    true;
+
+                gameState.storyStage =
+                    3;
+
+                saveGameState();
+
+                updateInteraction();
+            }
+        );
+
+        return;
+    }
+
+
+    /* -----------------------------------------
+       RÍO UNIVERSIDAD
+       ----------------------------------------- */
+
     if (
         interactionId ===
         "river-sign"
@@ -428,13 +516,43 @@ function handleInteraction(
 
         saveGameState();
 
+        /*
+        Antes de conocer a Rana,
+        Sergio puede descubrir el río
+        pero todavía no puede cruzarlo.
+        */
+
+        if (
+            !gameState.riverUnlocked
+        ) {
+            showVillageDialog(
+                "",
+                "RÍO UNIVERSIDAD\n\nParece que no puedes cruzar por aquí."
+            );
+
+            return;
+        }
+
+        /*
+        Rana ya desbloqueó el camino.
+
+        Todavía no hacemos la transición
+        al otro lado. Eso se implementará
+        en la siguiente etapa.
+        */
+
         showVillageDialog(
-            "",
-            "RÍO UNIVERSIDAD"
+            "Rana",
+            "Este es el Río Universidad. Yo sé cómo cruzarlo."
         );
 
         return;
     }
+
+
+    /* -----------------------------------------
+       CASA MISTERIOSA
+       ----------------------------------------- */
 
     if (
         interactionId ===
@@ -449,6 +567,11 @@ function handleInteraction(
         return;
     }
 
+
+    /* -----------------------------------------
+       CASA CERRADA
+       ----------------------------------------- */
+
     if (
         interactionId ===
         "closed-house"
@@ -460,6 +583,11 @@ function handleInteraction(
 
         return;
     }
+
+
+    /* -----------------------------------------
+       EL PORVENIR
+       ----------------------------------------- */
 
     if (
         interactionId ===
@@ -481,6 +609,11 @@ function handleInteraction(
 
         return;
     }
+
+
+    /* -----------------------------------------
+       CASA DE PISTAS
+       ----------------------------------------- */
 
     if (
         interactionId ===
@@ -593,51 +726,52 @@ export function initializeInteractions() {
         true;
 
     villageDialogClose.addEventListener(
-    "click",
-    () => {
-        if (
-            activeDialogSequence
-        ) {
-            activeDialogStep += 1;
-
+        "click",
+        () => {
             if (
-                activeDialogStep <
-                activeDialogSequence.length
+                activeDialogSequence
             ) {
-                villageDialogText.textContent =
-                    activeDialogSequence[
-                        activeDialogStep
-                    ];
+                activeDialogStep +=
+                    1;
+
+                if (
+                    activeDialogStep <
+                    activeDialogSequence.length
+                ) {
+                    villageDialogText.textContent =
+                        activeDialogSequence[
+                            activeDialogStep
+                        ];
+
+                    return;
+                }
+
+                const finishCallback =
+                    activeDialogFinishCallback;
+
+                activeDialogSequence =
+                    null;
+
+                activeDialogStep =
+                    0;
+
+                activeDialogFinishCallback =
+                    null;
+
+                hideVillageDialog();
+
+                if (
+                    finishCallback
+                ) {
+                    finishCallback();
+                }
 
                 return;
             }
 
-            const finishCallback =
-                activeDialogFinishCallback;
-
-            activeDialogSequence =
-                null;
-
-            activeDialogStep =
-                0;
-
-            activeDialogFinishCallback =
-                null;
-
             hideVillageDialog();
-
-            if (
-                finishCallback
-            ) {
-                finishCallback();
-            }
-
-            return;
         }
-
-        hideVillageDialog();
-       }
-   );
+    );
 
     initializeActionButton();
 
