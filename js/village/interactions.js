@@ -88,6 +88,16 @@ const closeTreasureMap =
         "close-treasure-map"
     );
 
+const dialogPortrait =
+    document.getElementById(
+        "dialog-portrait"
+    );
+
+const dialogPortraitImage =
+    document.getElementById(
+        "dialog-portrait-image"
+    );
+
 
 /* =========================================
    ESTADO LOCAL
@@ -313,6 +323,63 @@ export function updateInteraction() {
 
 
 /* =========================================
+   RETRATO DE DIÁLOGO
+   ========================================= */
+
+function showDialogPortrait(
+    image,
+    side = "left"
+) {
+    if (
+        !image ||
+        !dialogPortrait ||
+        !dialogPortraitImage
+    ) {
+        hideDialogPortrait();
+
+        return;
+    }
+
+    dialogPortraitImage.src =
+        image;
+
+    dialogPortrait.classList.remove(
+        "hidden",
+        "right"
+    );
+
+    if (
+        side === "right"
+    ) {
+        dialogPortrait.classList.add(
+            "right"
+        );
+    }
+}
+
+
+function hideDialogPortrait() {
+    if (
+        !dialogPortrait ||
+        !dialogPortraitImage
+    ) {
+        return;
+    }
+
+    dialogPortrait.classList.add(
+        "hidden"
+    );
+
+    dialogPortrait.classList.remove(
+        "right"
+    );
+
+    dialogPortraitImage.src =
+        "";
+}
+
+
+/* =========================================
    INICIAR SECUENCIA DE DIÁLOGO
    ========================================= */
 
@@ -381,6 +448,8 @@ function hideVillageDialog() {
     villageDialog.classList.add(
         "hidden"
     );
+
+    hideDialogPortrait();
 
     setMovementBlocked(
         false
@@ -461,6 +530,11 @@ function handleInteraction(
         if (
             gameState.ranaMet
         ) {
+            showDialogPortrait(
+                "assets/characters/rana/rana-idle-seat.png",
+                "left"
+            );
+
             showVillageDialog(
                 "Rana",
                 "¿Qué? ¿Ya olvidaste que tenemos que ir a mi mansión?"
@@ -472,6 +546,11 @@ function handleInteraction(
         /*
         Primera conversación con Rana.
         */
+
+        showDialogPortrait(
+            "assets/characters/rana/rana-idle-seat.png",
+            "left"
+        );
 
         startDialogSequence(
             "Rana",
@@ -536,10 +615,14 @@ function handleInteraction(
         /*
         Rana ya desbloqueó el camino.
 
-        Todavía no hacemos la transición
-        al otro lado. Eso se implementará
+        El cruce real se implementará
         en la siguiente etapa.
         */
+
+        showDialogPortrait(
+            "assets/characters/rana/rana-idle-seat.png",
+            "left"
+        );
 
         showVillageDialog(
             "Rana",
@@ -777,3 +860,4 @@ export function initializeInteractions() {
 
     initializeTreasureControls();
 }
+
