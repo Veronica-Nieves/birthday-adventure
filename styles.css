@@ -518,7 +518,50 @@ button {
     transform: translate(2px, 2px);
 }
 
+/* =========================================
+   RETRATOS DE DIÁLOGO
+   ========================================= */
 
+.dialog-portrait {
+    position: absolute;
+    z-index: 20;
+
+    left: 4%;
+    bottom: 17%;
+
+    width: clamp(130px, 22vw, 260px);
+    max-height: 48%;
+
+    pointer-events: none;
+}
+
+.dialog-portrait.right {
+    left: auto;
+    right: 4%;
+}
+
+.dialog-portrait.hidden {
+    display: none;
+}
+
+.dialog-portrait-image {
+    display: block;
+
+    width: 100%;
+    height: auto;
+    max-height: 100%;
+
+    object-fit: contain;
+    object-position: bottom;
+
+    image-rendering: pixelated;
+
+    user-select: none;
+    -webkit-user-select: none;
+    -webkit-user-drag: none;
+
+    pointer-events: none;
+}
 /* =========================================
    DIÁLOGOS
    ========================================= */
